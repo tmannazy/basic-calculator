@@ -9,24 +9,19 @@ divide = (a, b) => a / b;
 operate = (operator, a, b) => {
 
 };
+
 const buttons = document.querySelector('.calc-body');
 const displayScreen = document.querySelector('.calc-display');
-let displayValue;
-
-display = () => {
-    value;
-    displayValue;
-}
+let buttonValue;
 
 const value = buttons.addEventListener('click', (e) => {
     if (e.target !== e.currentTarget) {
-        displayValue = e.target.textContent;
         displayScreen.innerHTML = e.target.textContent;
+        buttonValue = +displayScreen.textContent;
+        return buttonValue;
     } e.stopPropagation();
 });
 
-// display();
-console.log(displayValue);
 
 
 
