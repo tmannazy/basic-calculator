@@ -14,15 +14,27 @@ const buttons = document.querySelector('.calc-body');
 const displayScreen = document.querySelector('.calc-display');
 let buttonValue;
 let operatorSign;
-let decision = ['=', 'C'].map(item => item);
 
 calculation = () => {
     buttons.addEventListener('click', (e) => {
         if (e.target !== e.currentTarget) {
-            if (e.target.id === 'equals' || e.target.id  === 'clear') {
-                displayScreen.innerHTML = '';
-            }else {
-                displayScreen.innerHTML += ' ' + e.target.textContent;
+            if (e.target.id !== 'equals' &&
+                e.target.id !== 'clear' &&
+                e.target.id !== 'plus' &&
+                e.target.id !== 'minus' &&
+                e.target.id !== 'multiply' &&
+                e.target.id !== 'divide') {
+                displayScreen.innerHTML += e.target.textContent;
+
+            }
+            else if (e.target.id === 'plus' ||
+                e.target.id === 'minus' ||
+                e.target.id === 'multiply' ||
+                e.target.id === 'divide') {
+                displayScreen.innerHTML += ' ' + e.target.textContent + ' ';
+            } else  {
+                displayScreen.innerHTML = ' ';
+
             }
         }
             // buttonValue = +displayScreen.textContent;
