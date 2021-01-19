@@ -22,7 +22,7 @@ calculation = () => {
             if (e.target.id === 'equals' || e.target.id  === 'clear') {
                 displayScreen.innerHTML = '';
             }else {
-                displayScreen.innerHTML = e.target.textContent;
+                displayScreen.innerHTML += ' ' + e.target.textContent;
             }
         }
             // buttonValue = +displayScreen.textContent;
