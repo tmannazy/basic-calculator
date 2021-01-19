@@ -6,13 +6,16 @@ multiply = (a, b) => a * b;
 
 divide = (a, b) => a / b;
 
-operate = (operator, operation) => {
-
+operate = (operator) => {
+    if (operator === '+') {
+        add(buttonValue, buttonValueTwo);
+    };
 };
 
 const buttons = document.querySelector('.calc-body');
 const displayScreen = document.querySelector('.calc-display');
 let buttonValue;
+let buttonValueTwo;
 let operatorSign;
 
 calculation = () => {
@@ -25,16 +28,29 @@ calculation = () => {
                 e.target.id !== 'multiply' &&
                 e.target.id !== 'divide') {
                 displayScreen.innerHTML += e.target.textContent;
-
+                return buttonValue = +e.target.textContent;
+                // return buttonValue;
             }
             else if (e.target.id === 'plus' ||
                 e.target.id === 'minus' ||
                 e.target.id === 'multiply' ||
                 e.target.id === 'divide') {
-                displayScreen.innerHTML += ' ' + e.target.textContent + ' ';
-            } else  {
-                displayScreen.innerHTML = ' ';
-
+                if (e.target.id !== 'equals' &&
+                    e.target.id !== 'clear') {
+                        displayScreen.innerHTML += ' ' + e.target.textContent + ' ';
+                        operatorSign = e.target.textContent;
+                    }
+                else {
+                    return buttonValueTwo = +e.target.textContent;
+                    }
+            }
+            // else target.id !== 'plus' &&
+            //     e.target.id !== 'minus' &&
+            //     e.target.id !== 'multiply' &&
+            //     e.target.id !== 'divide') {
+            // }
+            else if (e.target.id === 'equals') {
+                displayScreen.innerHTML = operate(operatorSign);
             }
         }
             // buttonValue = +displayScreen.textContent;
