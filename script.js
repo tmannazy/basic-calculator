@@ -34,7 +34,7 @@ calculation = () => {
                 e.target.id !== 'plus' &&
                 e.target.id !== 'minus' &&
                 e.target.id !== 'multiply' &&
-                e.target.id !== 'divide' ) {
+                e.target.id !== 'divide') {
                 displayScreen.innerHTML += e.target.textContent;
                 buttonValueTwo.push(e.target.textContent);
             }
@@ -50,8 +50,21 @@ calculation = () => {
             else if (e.target.id === 'equals') {
                 displayScreen.innerHTML = operate(operatorSign);
             }
+            else if (e.target.id === 'clear') {
+                displayScreen.innerHTML = ' ';
+                buttonValue = buttonValueTwo = [];
+            }
         } e.stopPropagation();
     });
+}
+
+isOperator = (e) => {
+    if (e.target.id == 'plus') {
+        operatorSign = e.target.textContent;
+        displayScreen += e.target.textContent;
+}
+
+
 }
 
 
