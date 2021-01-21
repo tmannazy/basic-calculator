@@ -62,10 +62,13 @@ isOperator = (e) => {
     if (e.target.id == 'plus') {
         operatorSign = e.target.textContent;
         displayScreen += e.target.textContent;
-}
+    }
+    else if (e.target.id === 'minus') {
+        operatorSign = e.target.textContent;
+    }
+};
 
 
-}
 
 
 calculation();
