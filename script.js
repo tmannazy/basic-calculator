@@ -74,7 +74,7 @@ const selectButton = (e) => {
             console.log(displayScreen);
         }
         else if (e.target.id !== isOperator(e.target.id)) {
-            if (leftOperand.length !== 0) {
+            if (operatorSign) {
                 rightOperand.push(e.target.textContent);
             }
             else {
