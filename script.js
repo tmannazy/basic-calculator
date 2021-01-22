@@ -1,7 +1,9 @@
 const buttons = document.querySelector('.calc-body');
 const screen = document.querySelector('.calc-display');
-const leftOperand = [];
-const rightOperand = [];
+const leftOperandArray = [];
+const rightOperandArray = [];
+let leftOperand;
+let rightOperand;
 let operatorSign;
 
 const add = (a, b) =>  a + b;
@@ -11,16 +13,16 @@ const divide = (a, b) => a / b;
 
 const operate = (operator) => {
     if (operator === '+') {
-        return screen = displayScreen(add(+leftOperand, +rightOperand));
+        return displayScreen(add(+leftOperand, +rightOperand));
     }
     else if (operator === '-') {
-        return screen = displayScreen(subtract(+leftOperand, +rightOperand));
+        return displayScreen(subtract(+leftOperand, +rightOperand));
     }
     else if (operator === 'x') {
-        return screen += displayScreen(multiply(+leftOperand, +rightOperand));
+        return displayScreen(multiply(+leftOperand, +rightOperand));
     }
     else {
-        return screen += displayScreen(divide(+leftOperand, +rightOperand));
+        return displayScreen(divide(+leftOperand, +rightOperand));
     }
 };
 
@@ -40,8 +42,8 @@ const isOperator = (e) => {
 };
 
 const displayScreen = (scr) => {
-    console.log(screen.innerHTML = scr);
-    screen.innerHTML = scr;
+    // console.log(screen.innerHTML = scr);
+    screen.textContent = scr;
 }
 
 const calculation = () => {
@@ -52,11 +54,11 @@ const selectButton = (e) => {
     if (e.target !== e.currentTarget) {
         if (e.target.id === isOperator(e.target.id)) {
             operatorSign = e.target.textContent;
-            screen.innerHTML += ' ' + operatorSign + ' ';
+            screen.textContent += ' ' + operatorSign + ' ';
         }
         else if (e.target.id === 'equals') {
             if (!operatorSign){
-                screen.innerHTML = 0;
+                screen.textContent = 0;
             }
             else if (operatorSign) {
                 operate(operatorSign);
@@ -64,12 +66,14 @@ const selectButton = (e) => {
         }
         else if (e.target.id !== isOperator(e.target.id)) {
             if (operatorSign) {
-                rightOperand.push(e.target.textContent);
-                displayScreen(rightOperand.join(''));
+                rightOperandArray.push(e.target.textContent);
+                rightOperand = rightOperandArray.join('');
+                displayScreen(leftOperand) + displayScreen(rightOperand);
             }
             else {
-                leftOperand.push(e.target.textContent);
-                displayScreen(leftOperand.join(''));
+                leftOperandArray.push(e.target.textContent);
+                leftOperand = leftOperandArray.join('');
+                displayScreen(leftOperand);
             }
         }
 
