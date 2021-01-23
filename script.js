@@ -66,16 +66,19 @@ const selectButton = (e) => {
             screen.textContent += ' ' + operatorSign + ' ';
             if (leftOperand && rightOperand) {
                 operate(operatorSign);
+                leftOperandArray.splice(0, leftOperandArray.length);
+                leftOperandArray.push(operate(operatorSign))
+                leftOperand = leftOperandArray.join('');
+                // operate(operatorSign);
             }
+            // else if (operatorSign && rightOperand) {
+            // }
         }
         else if (e.target.id === 'clear') {
             clearScreen();
         }
         else if (e.target.id === 'equals') {
-            if (!operatorSign) {
-                screen.textContent = 0;
-            }
-            else if (operatorSign) {
+            if (operatorSign) {
                 operate(operatorSign);
             }
         }
@@ -85,6 +88,7 @@ const selectButton = (e) => {
                 rightOperand = rightOperandArray.join('');
                 displayScreen(leftOperand) + displayScreen(rightOperand);
             }
+
             else {
                 leftOperandArray.push(e.target.textContent);
                 leftOperand = leftOperandArray.join('');
