@@ -43,12 +43,16 @@ const isOperator = (e) => {
 };
 
 const displayScreen = (scr) => {
+    console.log({ leftOperandArray, rightOperandArray });
     screen.textContent = scr;
 }
 
 const clearScreen = () => {
-    leftOperand = leftOperandArray.splice(0, leftOperandArray.length);
-    rightOperand = rightOperandArray.splice(0, rightOperandArray.length);
+    leftOperandArray.splice(0, leftOperandArray.length);
+    rightOperandArray.splice(0, rightOperandArray.length);
+    leftOperand = 0;
+    rightOperand = 0;
+    operatorSign = '';
     displayScreen(0);
 }
 const calculation = () => {
@@ -60,17 +64,20 @@ const selectButton = (e) => {
         if (e.target.id === isOperator(e.target.id)) {
             operatorSign = e.target.textContent;
             screen.textContent += ' ' + operatorSign + ' ';
-        }
-        else if (e.target.id === 'equals') {
-            if (!operatorSign){
-                screen.textContent = 0;
-            }
-            else if (operatorSign) {
+            if (leftOperand && rightOperand) {
                 operate(operatorSign);
             }
         }
         else if (e.target.id === 'clear') {
             clearScreen();
+        }
+        else if (e.target.id === 'equals') {
+            if (!operatorSign) {
+                screen.textContent = 0;
+            }
+            else if (operatorSign) {
+                operate(operatorSign);
+            }
         }
         else if (e.target.id !== isOperator(e.target.id)) {
             if (operatorSign) {
@@ -85,8 +92,8 @@ const selectButton = (e) => {
             }
         }
 
-
-    } e.stopPropagation();
+    }
+    e.stopPropagation();
 };
 
 calculation();
