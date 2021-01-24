@@ -12,8 +12,9 @@ const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
-const operate = (operator) => {
+function operate (operator) {
     if (operator === '+') {
+        return add(+leftOperand, +rightOperand);
         return displayScreen(add(+leftOperand, +rightOperand));
     }
     else if (operator === '-') {
@@ -81,9 +82,9 @@ const selectButton = (e) => {
             }
         }
         else if (e.target.id !== isOperator(e.target.id)) {
-            if (rightOperand && leftOperand && operatorSign) {
+            if (rightOperand && operatorSign) {
                 // leftOperandArray.push(e.target.textContent);
-                leftOperand = operate(operatorSign);
+                leftOperandArray.push(operate(operatorSign));
                 displayScreen(leftOperand);
             }
             else if (operatorSign) {
