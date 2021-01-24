@@ -64,13 +64,11 @@ const selectButton = (e) => {
         if (e.target.id === isOperator(e.target.id)) {
             operatorSign = e.target.textContent;
             screen.textContent += ' ' + operatorSign + ' ';
-            if (leftOperand && rightOperand) {
-                operate(operatorSign);
-                leftOperandArray.splice(0, leftOperandArray.length);
-                leftOperandArray.push(operate(operatorSign))
-                leftOperand = leftOperandArray.join('');
-                // operate(operatorSign);
+            if (rightOperand) {
+                leftOperand = operate(operatorSign);
+                rightOperand = 0;
             }
+            // leftOperandArray.push(operate(operatorSign));
             // else if (operatorSign && rightOperand) {
             // }
         }
@@ -83,12 +81,17 @@ const selectButton = (e) => {
             }
         }
         else if (e.target.id !== isOperator(e.target.id)) {
-            if (operatorSign) {
+            if (rightOperand && leftOperand && operatorSign) {
+                // leftOperandArray.push(e.target.textContent);
+                leftOperand = operate(operatorSign);
+                displayScreen(leftOperand);
+            }
+            else if (operatorSign) {
                 rightOperandArray.push(e.target.textContent);
                 rightOperand = rightOperandArray.join('');
-                displayScreen(leftOperand) + displayScreen(rightOperand);
+                displayScreen(rightOperand);
+                // displayScreen(leftOperand) + displayScreen(rightOperand);
             }
-
             else {
                 leftOperandArray.push(e.target.textContent);
                 leftOperand = leftOperandArray.join('');
