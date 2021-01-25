@@ -43,8 +43,7 @@ const isOperator = (e) => {
 };
 
 const displayScreen = (scr) => {
-    console.log({ leftOperandArray, rightOperandArray });
-    screen.textContent = scr;
+        screen.textContent = scr;
 }
 
 const clearScreen = () => {
@@ -62,8 +61,6 @@ const calculation = () => {
 const selectButton = (e) => {
     if (e.target !== e.currentTarget) {
         if (e.target.id === isOperator(e.target.id)) {
-            // if (rightOperand) {
-                // }
             operatorSign = e.target.textContent;
             screen.textContent += ' ' + operatorSign + ' ';
             if (leftOperand && rightOperand) {
@@ -87,7 +84,9 @@ const selectButton = (e) => {
             if (operatorSign) {
                 rightOperandArray.push(e.target.textContent);
                 rightOperand = rightOperandArray.join('');
-                displayScreen(rightOperand);
+                screen.textContent += e.target.textContent;
+            }
+            else if (operatorSign && e.target.id !== 'equals'){
                 leftOperand = operate(operatorSign);
                 rightOperandArray.splice(0, rightOperandArray.length);
                 rightOperand = 0;
