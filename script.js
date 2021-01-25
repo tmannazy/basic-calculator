@@ -5,7 +5,6 @@ const rightOperandArray = [];
 let leftOperand;
 let rightOperand;
 let operatorSign;
-let solveOperatorSign;
 screen.textContent = 0;
 
 const add = (a, b) =>  a + b;
@@ -65,16 +64,9 @@ const selectButton = (e) => {
             operatorSign = e.target.textContent;
             screen.textContent += ' ' + operatorSign + ' ';
             if (operatorSign && rightOperand) {
-                solveOperatorSign = operatorSign;
-                leftOperand = operate(solveOperatorSign);
-                rightOperandArray.splice(0, rightOperandArray.length);
-                rightOperand = 0;
-            }
-            else if (leftOperand && rightOperand === 0) {
-                screen.textContent += ' ' + operatorSign + ' ';
                 leftOperand = operate(operatorSign);
-            };
-            // }
+                rightOperandArray.splice(0, rightOperandArray.length);
+            }
         }
         else if (e.target.id === 'clear') {
             clearScreen();
@@ -82,18 +74,20 @@ const selectButton = (e) => {
         else if (e.target.id === 'equals') {
             if (operatorSign) {
                 displayScreen(operate(operatorSign));
+                clearScreen();
             }
         }
         else if (e.target.id !== isOperator(e.target.id)) {
-            // if (rightOperand && leftOperand && e.target.id === isOperator(e.target.id)){
-            //     leftOperand = operate(operatorSign);
-            //     rightOperandArray.splice(0, rightOperandArray.length);
-            //     rightOperand = 0;
-            // }
             if (operatorSign) {
                 rightOperandArray.push(e.target.textContent);
                 rightOperand = rightOperandArray.join('');
                 screen.textContent += e.target.textContent;
+                if (rightOperand){
+                    leftOperand = operate(operatorSign);
+                    displayScreen(leftOperand);
+                    rightOperandArray.splice(0, rightOperandArray.length);
+                    rightOperand = 0;
+                }
             }
             else {
                 leftOperandArray.push(e.target.textContent);
