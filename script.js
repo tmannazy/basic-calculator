@@ -14,16 +14,20 @@ const divide = (a, b) => a / b;
 
 const operate = (operator) => {
     if (operator === '+') {
-        return add(+leftOperand, +rightOperand);
+        return add(Number(leftOperand), Number(rightOperand));
     }
     else if (operator === '-') {
-        return subtract(+leftOperand, +rightOperand);
+        return subtract(Number(leftOperand), Number(rightOperand));
     }
     else if (operator === 'x') {
-        return multiply(+leftOperand, +rightOperand);
+        return multiply(Number(leftOperand), Number(rightOperand));
     }
     else {
-        return divide(+leftOperand, +rightOperand);
+        if (+rightOperand === 0) {
+            return 'Don\'t try that again!!!'
+        } else {
+            return divide(Number(leftOperand), Number(rightOperand));
+        }
     }
 };
 
@@ -77,12 +81,25 @@ const selectButton = (e) => {
                 clearScreen();
             }
         }
+        // else if (e.target.id === 'point') {
+        //     if (leftOperandArray.includes(e.target.textContent)) {
+        //         leftOperandArray.pop();
+        //     } else if (rightOperandArray.includes(e.target.textContent)) {
+        //         rightOperandArray.pop();
+        //     } else {
+        //         leftOperandArray.push(e.target.textContent);
+        //         rightOperandArray.push(e.target.textContent);
+        //     }
+        // }
         else if (e.target.id !== isOperator(e.target.id)) {
             if (operatorSign) {
                 rightOperandArray.push(e.target.textContent);
-                rightOperand = rightOperandArray.join('');
                 screen.textContent += e.target.textContent;
-                if (rightOperand){
+                rightOperand = rightOperandArray.join('');
+                if (rightOperandArray.includes('.')) {
+                    rightOperandArray.pop();
+                }
+                else if (rightOperand) {
                     leftOperand = operate(operatorSign);
                     displayScreen(leftOperand);
                     rightOperandArray.splice(0, rightOperandArray.length);
@@ -90,9 +107,14 @@ const selectButton = (e) => {
                 }
             }
             else {
-                leftOperandArray.push(e.target.textContent);
-                leftOperand = leftOperandArray.join('');
-                displayScreen(leftOperand);
+                if (leftOperandArray.includes(e.target.textContent)) {
+                    leftOperandArray.pop();
+                }
+                else {
+                    leftOperandArray.push(e.target.textContent);
+                    leftOperand = leftOperandArray.join('');
+                    displayScreen(leftOperand);
+                }
             }
         }
 
