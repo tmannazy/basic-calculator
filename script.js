@@ -24,7 +24,7 @@ const operate = (operator) => {
         return multiply(Number(leftOperand), Number(rightOperand));
     }
     else {
-        if (+rightOperand === 0) {
+        if (Number(rightOperand) === 0) {
             return 'Don\'t try that again!!!'
         } else {
             return divide(Number(leftOperand), Number(rightOperand));
@@ -60,20 +60,17 @@ const clearScreen = () => {
     displayScreen(0);
 }
 
-const operatorHold = (e) => solveOperator = isOperator(e);
-
 const calculation = () => {
     buttons.addEventListener('click', selectButton);
 }
 
 const selectButton = (e) => {
     if (e.target !== e.currentTarget) {
-        operatorHold(e.target.id);
         if (e.target.id === isOperator(e.target.id)) {
             operatorSign = e.target.textContent;
             screen.textContent += ' ' + operatorSign + ' ';
-            if (rightOperand) {
-                leftOperand = operate(operatorHold());
+            if (rightOperand && operatorSign !== isOperator(e.target.id)) {
+                leftOperand = operate(operatorSign);
                 rightOperandArray.splice(0, rightOperandArray.length);
                 displayScreen(leftOperand);
                 rightOperand = 0;
@@ -85,7 +82,9 @@ const selectButton = (e) => {
         else if (e.target.id === 'equals') {
             if (operatorSign) {
                 displayScreen(operate(operatorSign));
-                clearScreen();
+                leftOperand = (operate(operatorSign));
+                rightOperandArray.splice(0, rightOperandArray.length);
+                rightOperand = 0;
             }
         }
         else if (e.target.id !== isOperator(e.target.id)) {
@@ -93,15 +92,12 @@ const selectButton = (e) => {
                 rightOperandArray.push(e.target.textContent);
                 screen.textContent += e.target.textContent;
                 rightOperand = rightOperandArray.join('');
-                // if (rightOperandArray.includes('.')) {
-                //     rightOperandArray.pop();
-                }
-            else if (rightOperand) {
+            }
+            else if (rightOperand && e.target.id === isOperator(e.target.id)) {
                 leftOperand = operate(operatorSign);
                 displayScreen(leftOperand);
                 rightOperandArray.splice(0, rightOperandArray.length);
                 rightOperand = 0;
-            // }
             }
             else {
                 // if (leftOperandArray.some(item => item === '.')) {
