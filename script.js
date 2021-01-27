@@ -5,6 +5,7 @@ const rightOperandArray = [];
 let leftOperand;
 let rightOperand;
 let operatorSign;
+let solveOperatorSign;
 screen.textContent = 0;
 
 const add = (a, b) =>  a + b;
@@ -58,18 +59,24 @@ const clearScreen = () => {
     operatorSign = '';
     displayScreen(0);
 }
+
+const operatorHold = (e) => solveOperator = isOperator(e);
+
 const calculation = () => {
     buttons.addEventListener('click', selectButton);
 }
 
 const selectButton = (e) => {
     if (e.target !== e.currentTarget) {
+        operatorHold(e.target.id);
         if (e.target.id === isOperator(e.target.id)) {
             operatorSign = e.target.textContent;
             screen.textContent += ' ' + operatorSign + ' ';
-            if (operatorSign && rightOperand) {
-                leftOperand = operate(operatorSign);
+            if (rightOperand) {
+                leftOperand = operate(operatorHold());
                 rightOperandArray.splice(0, rightOperandArray.length);
+                displayScreen(leftOperand);
+                rightOperand = 0;
             }
         }
         else if (e.target.id === 'clear') {
@@ -81,43 +88,44 @@ const selectButton = (e) => {
                 clearScreen();
             }
         }
-        // else if (e.target.id === 'point') {
-        //     if (leftOperandArray.includes(e.target.textContent)) {
-        //         leftOperandArray.pop();
-        //     } else if (rightOperandArray.includes(e.target.textContent)) {
-        //         rightOperandArray.pop();
-        //     } else {
-        //         leftOperandArray.push(e.target.textContent);
-        //         rightOperandArray.push(e.target.textContent);
-        //     }
-        // }
         else if (e.target.id !== isOperator(e.target.id)) {
             if (operatorSign) {
                 rightOperandArray.push(e.target.textContent);
                 screen.textContent += e.target.textContent;
                 rightOperand = rightOperandArray.join('');
-                if (rightOperandArray.includes('.')) {
-                    rightOperandArray.pop();
+                // if (rightOperandArray.includes('.')) {
+                //     rightOperandArray.pop();
                 }
-                else if (rightOperand) {
-                    leftOperand = operate(operatorSign);
-                    displayScreen(leftOperand);
-                    rightOperandArray.splice(0, rightOperandArray.length);
-                    rightOperand = 0;
-                }
+            else if (rightOperand) {
+                leftOperand = operate(operatorSign);
+                displayScreen(leftOperand);
+                rightOperandArray.splice(0, rightOperandArray.length);
+                rightOperand = 0;
+            // }
             }
             else {
-                if (leftOperandArray.includes(e.target.textContent)) {
-                    leftOperandArray.pop();
-                }
-                else {
+                // if (leftOperandArray.some(item => item === '.')) {
+                //     // leftOperandArray.pop();
+                //     leftOperandArray.push(e.target.textContent);
+                // }
+                // else {
                     leftOperandArray.push(e.target.textContent);
                     leftOperand = leftOperandArray.join('');
                     displayScreen(leftOperand);
-                }
+                // }
             }
         }
-
+        else if (e.target.id === 'point') {
+            if (leftOperandArray.includes(e.target.textContent)) {
+                leftOperandArray.pop();
+            } else if (rightOperandArray.includes(e.target.textContent)) {
+                rightOperandArray.pop();
+            }
+            // else {
+            //     leftOperandArray.push(e.target.textContent);
+            //     rightOperandArray.push(e.target.textContent);
+            // }
+        }
     }
     e.stopPropagation();
 };
