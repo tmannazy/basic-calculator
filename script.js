@@ -5,7 +5,6 @@ const rightOperandArray = [];
 let leftOperand;
 let rightOperand;
 let operatorSign;
-let solveOperatorSign;
 screen.textContent = 0;
 
 const add = (a, b) =>  a + b;
@@ -66,15 +65,16 @@ const calculation = () => {
 
 const selectButton = (e) => {
     if (e.target !== e.currentTarget) {
-        if (e.target.id === isOperator(e.target.id)) {
+        if (e.target.id === isOperator(e.target.id) && !operatorSign) {
             operatorSign = e.target.textContent;
             screen.textContent += ' ' + operatorSign + ' ';
-            if (rightOperand && operatorSign !== isOperator(e.target.id)) {
-                leftOperand = operate(operatorSign);
-                rightOperandArray.splice(0, rightOperandArray.length);
-                displayScreen(leftOperand);
-                rightOperand = 0;
-            }
+        }
+        else if (e.target.id === isOperator(e.target.id) && operatorSign) {
+            leftOperand = operate(operatorSign);
+            rightOperandArray.splice(0, rightOperandArray.length);
+            operatorSign = e.target.textContent;
+            screen.textContent = `${leftOperand} ${operatorSign} `;
+            rightOperand = 0;
         }
         else if (e.target.id === 'clear') {
             clearScreen();
@@ -93,37 +93,21 @@ const selectButton = (e) => {
                 screen.textContent += e.target.textContent;
                 rightOperand = rightOperandArray.join('');
             }
-            else if (rightOperand && e.target.id === isOperator(e.target.id)) {
-                leftOperand = operate(operatorSign);
-                displayScreen(leftOperand);
-                rightOperandArray.splice(0, rightOperandArray.length);
-                rightOperand = 0;
-            }
             else {
-                // if (leftOperandArray.some(item => item === '.')) {
-                //     // leftOperandArray.pop();
-                //     leftOperandArray.push(e.target.textContent);
-                // }
-                // else {
                     leftOperandArray.push(e.target.textContent);
                     leftOperand = leftOperandArray.join('');
                     displayScreen(leftOperand);
-                // }
             }
         }
         else if (e.target.id === 'point') {
             if (leftOperandArray.includes(e.target.textContent)) {
                 leftOperandArray.pop();
-            } else if (rightOperandArray.includes(e.target.textContent)) {
+            }
+            else if (rightOperandArray.includes(e.target.textContent)) {
                 rightOperandArray.pop();
             }
-            // else {
-            //     leftOperandArray.push(e.target.textContent);
-            //     rightOperandArray.push(e.target.textContent);
-            // }
         }
-    }
-    e.stopPropagation();
+    } e.stopPropagation();
 };
 
 calculation();
