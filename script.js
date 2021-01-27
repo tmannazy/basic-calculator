@@ -70,11 +70,17 @@ const selectButton = (e) => {
             screen.textContent += ' ' + operatorSign + ' ';
         }
         else if (e.target.id === isOperator(e.target.id) && operatorSign) {
-            leftOperand = operate(operatorSign);
-            rightOperandArray.splice(0, rightOperandArray.length);
-            operatorSign = e.target.textContent;
-            screen.textContent = `${leftOperand} ${operatorSign} `;
-            rightOperand = 0;
+            if ((rightOperand === 0 && e.target.id === 'multiply') || (rightOperand === 0 && e.target.id === 'divide')) {
+                operatorSign = e.target.textContent;
+                screen.textContent += ' '+ operatorSign + ' ';
+            }
+            else {
+                leftOperand = operate(operatorSign);
+                rightOperandArray.splice(0, rightOperandArray.length);
+                operatorSign = e.target.textContent;
+                screen.textContent = `${leftOperand} ${operatorSign} `;
+                rightOperand = 0;
+            }
         }
         else if (e.target.id === 'clear') {
             clearScreen();
