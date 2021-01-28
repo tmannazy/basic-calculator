@@ -36,7 +36,7 @@ const selectButton = e => {
             screen.textContent += ' ' + operatorSign + ' ';
         }
         else if (e.target.id === isOperator(e.target.id) && operatorSign) {
-            if ((rightOperand === 0 && e.target.id === 'multiply') || (rightOperand === 0 && e.target.id === 'divide')) {
+            if (rightOperand === 0 && e.target.id === isOperator(e.target.id)) {
                 operatorSign = e.target.textContent;
                 screen.textContent += ' '+ operatorSign + ' ';
             }
