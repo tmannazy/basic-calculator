@@ -59,21 +59,15 @@ const selectButton = e => {
                 rightOperand = 0;
             }
         }
-        else if (e.target.id === 'point' && rightOperandArray.includes(e.target.textContent)) {
-            rightOperandArray;
-        }
-        else if (e.target.id === 'point' && !leftOperandArray.includes(e.target.textContent)) {
-            rightOperandArray.push(e.target.textContent);
-            rightOperand = rightOperandArray.join('');
-            displayScreen(rightOperand);
-        }
         else if (e.target.id === 'point' && leftOperandArray.includes(e.target.textContent)) {
-            leftOperandArray;
-        }
-        else if (e.target.id === 'point' && !leftOperandArray.includes(e.target.textContent)) {
-            leftOperandArray.push(e.target.textContent);
-            leftOperand = leftOperandArray.join('');
-            displayScreen(leftOperand);
+            if (operatorSign && !rightOperandArray.includes(e.target.textContent)) {
+                rightOperandArray.push(e.target.textContent);
+                rightOperand = rightOperandArray.join('');
+                screen.textContent += e.target.textContent;
+            }
+            else {
+                leftOperandArray;
+            }
         }
         else if (e.target.id !== isOperator(e.target.id)) {
             if (operatorSign) {
