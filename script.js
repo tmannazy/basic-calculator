@@ -12,42 +12,8 @@ const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
-const operate = (operator) => {
-    if (operator === '+') {
-        return add(Number(leftOperand), Number(rightOperand));
-    }
-    else if (operator === '-') {
-        return subtract(Number(leftOperand), Number(rightOperand));
-    }
-    else if (operator === 'x') {
-        return multiply(Number(leftOperand), Number(rightOperand));
-    }
-    else {
-        if (Number(rightOperand) === 0) {
-            return 'Don\'t try that again!!!'
-        } else {
-            return divide(Number(leftOperand), Number(rightOperand));
-        }
-    }
-};
-
-const isOperator = (e) => {
-    if (e === 'plus') {
-        return e;
-    }
-    else if (e === 'minus') {
-        return e;
-    }
-    else if (e === 'multiply') {
-        return e;
-    }
-    else if (e === 'divide') {
-        return e;
-    }
-};
-
-const displayScreen = (scr) => {
-        screen.textContent = scr;
+const displayScreen = scr => {
+    screen.textContent = scr;
 }
 
 const clearScreen = () => {
@@ -63,7 +29,7 @@ const calculation = () => {
     buttons.addEventListener('click', selectButton);
 }
 
-const selectButton = (e) => {
+const selectButton = e => {
     if (e.target !== e.currentTarget) {
         if (e.target.id === isOperator(e.target.id) && !operatorSign) {
             operatorSign = e.target.textContent;
@@ -116,6 +82,45 @@ const selectButton = (e) => {
     } e.stopPropagation();
 };
 
+
+const isOperator = e => {
+    if (e === 'plus') {
+        return e;
+    }
+    else if (e === 'minus') {
+        return e;
+    }
+    else if (e === 'multiply') {
+        return e;
+    }
+    else if (e === 'divide') {
+        return e;
+    }
+};
+
+const operate = operator => {
+    if (operator === '+') {
+        return roundSolution(add(Number(leftOperand), Number(rightOperand)));
+    }
+    else if (operator === '-') {
+        return roundSolution(subtract(Number(leftOperand), Number(rightOperand)));
+    }
+    else if (operator === 'x') {
+        return roundSolution(multiply(Number(leftOperand), Number(rightOperand)));
+    }
+    else {
+        if (Number(rightOperand) === 0) {
+            return 'Don\'t try that again!!!'
+        } else {
+            return roundSolution(divide(Number(leftOperand), Number(rightOperand)));
+        }
+    }
+};
+
+
+const roundSolution = (operateSolution, decimalPlaces = 3) => {
+    return Number(Math.round(operateSolution + 'e' + decimalPlaces) + 'e-' + decimalPlaces)
+}
 calculation();
 
 
