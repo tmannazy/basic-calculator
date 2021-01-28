@@ -59,6 +59,17 @@ const selectButton = e => {
                 rightOperand = 0;
             }
         }
+        else if (e.target.id === 'del' && leftOperandArray) {
+            if (operatorSign) {
+                rightOperandArray.pop();
+                rightOperand = rightOperandArray.join('');
+                screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
+            } else {
+                leftOperandArray.pop();
+                leftOperand = leftOperandArray.join('');
+                displayScreen(leftOperand);
+            }
+        }
         else if (e.target.id === 'point' && leftOperandArray.includes(e.target.textContent)) {
             if (operatorSign && !rightOperandArray.includes(e.target.textContent)) {
                 rightOperandArray.push(e.target.textContent);
@@ -76,13 +87,11 @@ const selectButton = e => {
                 rightOperand = rightOperandArray.join('');
             }
             else {
-                    leftOperandArray.push(e.target.textContent);
-                    leftOperand = leftOperandArray.join('');
-                    displayScreen(leftOperand);
+                leftOperandArray.push(e.target.textContent);
+                leftOperand = leftOperandArray.join('');
+                displayScreen(leftOperand);
             }
         }
-
-        // }
     } e.stopPropagation();
 };
 
