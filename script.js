@@ -25,6 +25,17 @@ const clearScreen = () => {
     displayScreen(0);
 }
 
+document.addEventListener('keydown', handleKeyDown);
+
+function handleKeyDown(event) {
+    if (event.key === isOperator(event.key)) {
+        showCalculatorInput(event.key);
+    }
+    // const key = event.key;
+//   console.log(key);
+    // screen.textContent += key;
+}
+
 const calculation = () => {
     buttons.addEventListener('click', selectButton);
 }
@@ -32,82 +43,84 @@ const calculation = () => {
 const selectButton = e => {
     if (e.target !== e.currentTarget) {
         if (e.target.id === isOperator(e.target.id) && !operatorSign) {
-            operatorSign = e.target.textContent;
-            screen.textContent += ' ' + operatorSign + ' ';
+            showCalculatorInput(e.target.id);
+            // operatorSign = e.target.textContent;
+            // screen.textContent += ' ' + operatorSign + ' ';
         }
-        else if (e.target.id === isOperator(e.target.id) && operatorSign) {
-            if (rightOperand === 0 && e.target.id === isOperator(e.target.id)) {
-                operatorSign = e.target.textContent;
-                screen.textContent += ' '+ operatorSign + ' ';
-            }
-            else {
-                leftOperand = operate(operatorSign);
-                rightOperandArray.splice(0, rightOperandArray.length);
-                operatorSign = e.target.textContent;
-                screen.textContent = `${leftOperand} ${operatorSign} `;
-                rightOperand = 0;
-            }
-        }
-        else if (e.target.id === 'clear') {
-            clearScreen();
-        }
-        else if (e.target.id === 'equals') {
-            if (operatorSign) {
-                displayScreen(operate(operatorSign));
-                leftOperand = (operate(operatorSign));
-                rightOperandArray.splice(0, rightOperandArray.length);
-                rightOperand = 0;
-            }
-        }
-        else if (e.target.id === 'del' && leftOperandArray) {
-            if (operatorSign) {
-                rightOperandArray.pop();
-                rightOperand = rightOperandArray.join('');
-                screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
-            } else {
-                leftOperandArray.pop();
-                leftOperand = leftOperandArray.join('');
-                displayScreen(leftOperand);
-            }
-        }
-        else if (e.target.id === 'point' && leftOperandArray.includes(e.target.textContent)) {
-            if (operatorSign && !rightOperandArray.includes(e.target.textContent)) {
-                rightOperandArray.push(e.target.textContent);
-                rightOperand = rightOperandArray.join('');
-                screen.textContent += e.target.textContent;
-            }
-            else {
-                leftOperandArray;
-            }
-        }
-        else if (e.target.id !== isOperator(e.target.id)) {
-            if (operatorSign) {
-                rightOperandArray.push(e.target.textContent);
-                screen.textContent += e.target.textContent;
-                rightOperand = rightOperandArray.join('');
-            }
-            else {
-                leftOperandArray.push(e.target.textContent);
-                leftOperand = leftOperandArray.join('');
-                displayScreen(leftOperand);
-            }
-        }
+        // else if (e.target.id === isOperator(e.target.id) && operatorSign) {
+        //     if (rightOperand === 0 && e.target.id === isOperator(e.target.id)) {
+        //         operatorSign = e.target.textContent;
+        //         screen.textContent += ' '+ operatorSign + ' ';
+        //     }
+        //     else {
+        //         leftOperand = operate(operatorSign);
+        //         rightOperandArray.splice(0, rightOperandArray.length);
+        //         operatorSign = e.target.textContent;
+        //         screen.textContent = `${leftOperand} ${operatorSign} `;
+        //         rightOperand = 0;
+        //     }
+        // }
+        // else if (e.target.id === 'clear') {
+        //     clearScreen();
+        // }
+        // else if (e.target.id === 'equals') {
+        //     if (operatorSign) {
+        //         displayScreen(operate(operatorSign));
+        //         leftOperand = (operate(operatorSign));
+        //         rightOperandArray.splice(0, rightOperandArray.length);
+        //         rightOperand = 0;
+        //     }
+        // }
+        // else if (e.target.id === 'del' && leftOperandArray) {
+        //     if (operatorSign) {
+        //         rightOperandArray.pop();
+        //         rightOperand = rightOperandArray.join('');
+        //         screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
+        //     } else {
+        //         leftOperandArray.pop();
+        //         leftOperand = leftOperandArray.join('');
+        //         displayScreen(leftOperand);
+        //     }
+        // }
+        // else if (e.target.id === 'point' && leftOperandArray.includes(e.target.textContent)) {
+        //     if (operatorSign && !rightOperandArray.includes(e.target.textContent)) {
+        //         rightOperandArray.push(e.target.textContent);
+        //         rightOperand = rightOperandArray.join('');
+        //         screen.textContent += e.target.textContent;
+        //     }
+        //     else {
+        //         leftOperandArray;
+        //     }
+        // }
+        // else if (e.target.id !== isOperator(e.target.id)) {
+        //     if (operatorSign) {
+        //         rightOperandArray.push(e.target.textContent);
+        //         screen.textContent += e.target.textContent;
+        //         rightOperand = rightOperandArray.join('');
+        //     }
+        //     else {
+        //         leftOperandArray.push(e.target.textContent);
+        //         leftOperand = leftOperandArray.join('');
+        //         displayScreen(leftOperand);
+        //     }
+        // }
     } e.stopPropagation();
 };
 
 
 const isOperator = e => {
-    if (e === 'plus') {
+    if (e == 'plus' || e == '+') {
+        return '+';
+    }
+    if (e == '-' || e == 'minus' ) {
+        e = '-';
         return e;
     }
-    else if (e === 'minus') {
-        return e;
+    else if (e === 'multiply' || e === '*') {
+        return ('x');
     }
-    else if (e === 'multiply') {
-        return e;
-    }
-    else if (e === 'divide') {
-        return e;
+    else if (e === 'divide' || e === '/') {
+        return '/';
     }
 };
 
@@ -130,10 +143,18 @@ const operate = operator => {
     }
 };
 
-
 const roundSolution = (operateSolution, decimalPlaces = 3) => {
     return Number(Math.round(operateSolution + 'e' + decimalPlaces) + 'e-' + decimalPlaces)
 }
+
+const showCalculatorInput = input => {
+    if (isOperator(input)) {
+        operatorSign = input;
+        screen.textContent += ' ' + operatorSign + ' ';
+    }
+}
+
+
 calculation();
 
 
