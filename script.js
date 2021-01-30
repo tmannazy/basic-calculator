@@ -177,11 +177,10 @@ document.addEventListener('keydown', handleKeyDown);
     //     }
     // }
 // }
-const handleKeyDown = event => {
-    if (isOperator(event.key)) {
-        showCalculatorInput(event.key);
-    }
-    else if (isDigits(event.key)) {
+function handleKeyDown (event) {
+    isOperator(event.key);
+
+    if (isDigits(event.key)) {
         showCalculatorInput(event.key);
     }
     else if (isEquals(event.key)) {
@@ -208,7 +207,7 @@ const selectButton = e => {
 
 const isOperator = e => {
     if (e === '+') {
-        return e;
+        showCalculatorInput(e);
     }
     else if (e === '-') {
         return e;
@@ -278,12 +277,12 @@ const isClear = clear => {
 };
 
 const showCalculatorInput = input => {
-    if (!operatorSign) {
+    if (isOperator(input) && !operatorSign) {
         operatorSign = input;
         screen.textContent += ' ' + operatorSign + ' ';
     }
-    else if (operatorSign) {
-        if (rightOperand === 0 && isOperator(input)) {
+    else if (isOperator(input) && operatorSign) {
+        if (rightOperand === 0) {
             operatorSign = input;
             screen.textContent += ' ' + operatorSign + ' ';
         }
