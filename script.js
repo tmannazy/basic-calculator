@@ -7,10 +7,10 @@ let rightOperand;
 let operatorSign;
 screen.textContent = 0;
 
-const add = (a, b) =>  a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
+const add = (a, b) =>  roundSolution(a + b);
+const subtract = (a, b) => roundSolution(a - b);
+const multiply = (a, b) => roundSolution(a * b);
+const divide = (a, b) => roundSolution(a / b);
 
 const displayScreen = scr => {
     screen.textContent = scr;
@@ -123,27 +123,25 @@ document.addEventListener('keydown', handleKeyDown);
 
 
 const operate = operator => {
-    if (operator === '+') {
-        return roundSolution(add(Number(leftOperand), Number(rightOperand)));
-    }
-    else if (operator === '-') {
-        return roundSolution(subtract(Number(leftOperand), Number(rightOperand)));
-    }
-    else if (operator === 'x') {
-        return roundSolution(multiply(Number(leftOperand), Number(rightOperand)));
-    }
-    else {
-        if (Number(rightOperand) === 0) {
-            return 'Don\'t try that again!!!'
-        } else {
-            return roundSolution(divide(Number(leftOperand), Number(rightOperand)));
-        }
+    switch (operator) {
+        case '+':
+            return add(Number(leftOperand), Number(rightOperand));
+        case '-':
+            return subtract(Number(leftOperand), Number(rightOperand));
+        case '*':
+            return multiply(Number(leftOperand), Number(rightOperand));
+        case '/':
+            if (Number(rightOperand) === 0) {
+                return 'Don\'t try that again!!!'
+            } else {
+                return divide(Number(leftOperand), Number(rightOperand));
+            }
     }
 };
 
-// const roundSolution = (operateSolution, decimalPlaces = 3) => {
-//     return Number(Math.round(operateSolution + 'e' + decimalPlaces) + 'e-' + decimalPlaces)
-// }
+const roundSolution = (operateSolution, decimalPlaces = 3) => {
+    return Number(Math.round(operateSolution + 'e' + decimalPlaces) + 'e-' + decimalPlaces)
+}
 
 // const showCalculatorInput = input => {
     // if (isOperator(input) && !operatorSign) {
@@ -215,17 +213,15 @@ const selectButton = e => {
 };
 
 const isOperator = e => {
-    if (e === '+') {
-        return e;
-    }
-    else if (e === '-') {
-        return e;
-    }
-    else if (e === '*') {
-        return e;
-    }
-    else if (e === '/') {
-        return e;
+    switch (e) {
+        case '+':
+            return e;
+        case '-':
+            return e;
+        case '*':
+            return e;
+        case '/':
+            return e;
     }
 };
 
