@@ -29,10 +29,10 @@ document.addEventListener('keydown', handleKeyDown);
 
 // function handleKeyDown(event) {
 //     if (isOperator(event.key)) {
-//         showCalculatorInput(event.key);
+//         return showCalculatorInput(event.key);
 //     }
 //     else if (isDigits(event.key)) {
-//         showCalculatorInput(event.key);
+//         return showCalculatorInput(event.key);
 //     }
 // }
 
@@ -122,24 +122,24 @@ document.addEventListener('keydown', handleKeyDown);
 // }
 
 
-// const operate = operator => {
-//     if (operator === '+') {
-//         return roundSolution(add(Number(leftOperand), Number(rightOperand)));
-//     }
-//     else if (operator === '-') {
-//         return roundSolution(subtract(Number(leftOperand), Number(rightOperand)));
-//     }
-//     else if (operator === 'x') {
-//         return roundSolution(multiply(Number(leftOperand), Number(rightOperand)));
-//     }
-//     else {
-//         if (Number(rightOperand) === 0) {
-//             return 'Don\'t try that again!!!'
-//         } else {
-//             return roundSolution(divide(Number(leftOperand), Number(rightOperand)));
-//         }
-//     }
-// };
+const operate = operator => {
+    if (operator === '+') {
+        return roundSolution(add(Number(leftOperand), Number(rightOperand)));
+    }
+    else if (operator === '-') {
+        return roundSolution(subtract(Number(leftOperand), Number(rightOperand)));
+    }
+    else if (operator === 'x') {
+        return roundSolution(multiply(Number(leftOperand), Number(rightOperand)));
+    }
+    else {
+        if (Number(rightOperand) === 0) {
+            return 'Don\'t try that again!!!'
+        } else {
+            return roundSolution(divide(Number(leftOperand), Number(rightOperand)));
+        }
+    }
+};
 
 // const roundSolution = (operateSolution, decimalPlaces = 3) => {
 //     return Number(Math.round(operateSolution + 'e' + decimalPlaces) + 'e-' + decimalPlaces)
@@ -178,22 +178,23 @@ document.addEventListener('keydown', handleKeyDown);
     // }
 // }
 function handleKeyDown (event) {
-    isOperator(event.key);
-
-    if (isDigits(event.key)) {
-        showCalculatorInput(event.key);
+    if (isOperator(event.key)) {
+        return showCalculatorInput(event.key);
     }
-    else if (isEquals(event.key)) {
-        showCalculatorInput(event.key);
+    else if (isDigits(event.key)) {
+        return showCalculatorInput(event.key);
+    }
+    else if (isEquals(event.keyCode === 61)) {
+        return showCalculatorInput(event.key);
     }
     else if (isDecimal(event.key)) {
-        showCalculatorInput(event.key);
+        return showCalculatorInput(event.key);
     }
     else if (isDelete(event.key)) {
         showCalculatorInput(event.key)
     }
     else if (isClear(event.key)) {
-        showCalculatorInput(event.key);
+        return showCalculatorInput(event.key);
     }
 }
 
@@ -202,12 +203,20 @@ const calculation = () => {
 }
 
 const selectButton = e => {
+    if (e.target !== e.currentTarget) {
+        if (isOperator(e.target.value)) {
+            return showCalculatorInput(e.target.value);
+        }
+        else if (isDigits(e.target.value)) {
+            return showCalculatorInput(e.target.value);
+        }
+    }
     e.stopPropagation();
-}
+};
 
 const isOperator = e => {
     if (e === '+') {
-        showCalculatorInput(e);
+        return e;
     }
     else if (e === '-') {
         return e;
@@ -221,34 +230,26 @@ const isOperator = e => {
 };
 
 const isDigits = num => {
-    if (!isOperator(num)) {
-        if (operatorSign) {
-            rightOperandArray.push(e.target.textContent);
-            screen.textContent += e.target.textContent;
-            rightOperand = rightOperandArray.join('');
-        }
-        else {
-            leftOperandArray.push(e.target.textContent);
-            leftOperand = leftOperandArray.join('');
-            displayScreen(leftOperand);
-        }
+    if (num >= 0 || num <= 9) {
+        return num;
     }
 };
 
 
 const isEquals = equal => {
-    if (operatorSign) {
-        displayScreen(operate(operatorSign));
-        leftOperand = (operate(operatorSign));
-        rightOperandArray.splice(0, rightOperandArray.length);
-        rightOperand = 0;
-    }
+    // if (operatorSign) {
+    //     displayScreen(operate(operatorSign));
+    //     leftOperand = (operate(operatorSign));
+    //     rightOperandArray.splice(0, rightOperandArray.length);
+    //     rightOperand = 0;
+    // }
+    displayScreen(equal);
 };
 
 const isDecimal = point => {
     if (leftOperandArray.includes(point)) {
         if (operatorSign && !rightOperandArray.includes(point)) {
-            rightOperandArray.push(e.target.textContent);
+            rightOperandArray.push(point);
             rightOperand = rightOperandArray.join('');
             screen.textContent += point;
         }
@@ -292,6 +293,18 @@ const showCalculatorInput = input => {
             operatorSign = input;
             screen.textContent = `${leftOperand} ${operatorSign} `;
             rightOperand = 0;
+        }
+    }
+    else if (isDigits(input) && !isOperator(input)) {
+        if (operatorSign) {
+            rightOperandArray.push(input);
+            screen.textContent += input;
+            rightOperand = rightOperandArray.join('');
+        }
+        else {
+            leftOperandArray.push(input);
+            leftOperand = leftOperandArray.join('');
+            displayScreen(leftOperand);
         }
     }
 };
