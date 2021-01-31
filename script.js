@@ -176,24 +176,27 @@ const roundSolution = (operateSolution, decimalPlaces = 3) => {
     // }
 // }
 function handleKeyDown (event) {
-    if (isOperator(event.key)) {
-        return showCalculatorInput(event.key);
-    }
-    else if (isDigits(event.key)) {
-        return showCalculatorInput(event.key);
-    }
-    else if (isEquals(event.keyCode === 61)) {
-        return showCalculatorInput(event.key);
-    }
-    else if (isDecimal(event.key)) {
-        return showCalculatorInput(event.key);
-    }
-    else if (isDelete(event.key)) {
-        showCalculatorInput(event.key)
-    }
-    else if (isClear(event.key)) {
-        return showCalculatorInput(event.key);
-    }
+    // if (isOperator(event.key)) {
+    //     return showCalculatorInput(event.key);
+    // }
+    // else if (isDigits(event.key)) {
+    //     return showCalculatorInput(event.key);
+    // }
+    // else if (isEquals(event.key)) {
+    //     return showCalculatorInput(event.key);
+    // }
+    // else if (isDecimal(event.key)) {
+    //     return showCalculatorInput(event.key);
+    // }
+    // else if (isDelete(event.key)) {
+    //     return showCalculatorInput(event.key)
+    // }
+    // else if (isClear(event.key)) {
+    //     return showCalculatorInput(event.key);
+    // }
+    isOperator(event.key);
+    isDigits(event.key);
+    isEquals(event.key);
 }
 
 const calculation = () => {
@@ -202,57 +205,74 @@ const calculation = () => {
 
 const selectButton = e => {
     if (e.target !== e.currentTarget) {
-        if (isOperator(e.target.value)) {
-            return showCalculatorInput(e.target.value);
-        }
-        else if (isDigits(e.target.value)) {
-            return showCalculatorInput(e.target.value);
-        }
-    }
+        // if (isOperator(e.target.value)) {
+        //     return showCalculatorInput(e.target.value);
+        // }
+        // else if (isDigits(e.target.value)) {
+        //     return showCalculatorInput(e.target.value);
+        // }
+        // else if (isEquals(e.target.value)) {
+        //     return showCalculatorInput(e.target.value);
+        // }
+        // else if
+        isOperator(e.target.value);
+        isDigits(e.target.value)
+        isEquals(e.target.value)
+    };
     e.stopPropagation();
 };
 
 const isOperator = e => {
-    switch (e) {
-        case '+':
-            return e;
-        case '-':
-            return e;
-        case '*':
-            return e;
-        case '/':
-            return e;
+    if (e === '+' || e === '-' || e === '*' || e === '/') {
+        if (!operatorSign) {
+            operatorSign = e;
+            screen.textContent += ' ' + operatorSign + ' ';
+        }
+        else if (operatorSign) {
+            if (rightOperand === 0) {
+                operatorSign = e;
+                screen.textContent += ' ' + operatorSign + ' ';
+            }
+            else {
+                leftOperand = operate(operatorSign);
+                rightOperandArray.splice(0, rightOperandArray.length);
+                operatorSign = e;
+                screen.textContent = `${leftOperand} ${operatorSign} `;
+                rightOperand = 0;
+            }
+        }
     }
 };
 
 const isDigits = num => {
     if (num >= 0 || num <= 9) {
-        return num;
+        if (!isOperator(num)) {
+            if (operatorSign) {
+                rightOperandArray.push(num);
+                screen.textContent += num;
+                rightOperand = rightOperandArray.join('');
+            }
+            else {
+                leftOperandArray.push(num);
+                leftOperand = leftOperandArray.join('');
+                displayScreen(leftOperand);
+            }
+        }
     }
-};
+}
 
 
 const isEquals = equal => {
-    // if (operatorSign) {
-    //     displayScreen(operate(operatorSign));
-    //     leftOperand = (operate(operatorSign));
-    //     rightOperandArray.splice(0, rightOperandArray.length);
-    //     rightOperand = 0;
-    // }
-    displayScreen(equal);
+    if (equal = '=' && operatorSign) {
+        displayScreen(operate(operatorSign));
+        leftOperand = (operate(operatorSign));
+        rightOperandArray.splice(0, rightOperandArray.length);
+        rightOperand = 0;
+    }
 };
 
 const isDecimal = point => {
-    if (leftOperandArray.includes(point)) {
-        if (operatorSign && !rightOperandArray.includes(point)) {
-            rightOperandArray.push(point);
-            rightOperand = rightOperandArray.join('');
-            screen.textContent += point;
-        }
-        else {
-            leftOperandArray;
-        }
-    }
+    return point;
 };
 
 const isDelete = del => {
@@ -273,37 +293,56 @@ const isClear = clear => {
     clearScreen();
 };
 
-const showCalculatorInput = input => {
-    if (isOperator(input) && !operatorSign) {
-        operatorSign = input;
-        screen.textContent += ' ' + operatorSign + ' ';
-    }
-    else if (isOperator(input) && operatorSign) {
-        if (rightOperand === 0) {
-            operatorSign = input;
-            screen.textContent += ' ' + operatorSign + ' ';
-        }
-        else {
-            leftOperand = operate(operatorSign);
-            rightOperandArray.splice(0, rightOperandArray.length);
-            operatorSign = input;
-            screen.textContent = `${leftOperand} ${operatorSign} `;
-            rightOperand = 0;
-        }
-    }
-    else if (isDigits(input) && !isOperator(input)) {
-        if (operatorSign) {
-            rightOperandArray.push(input);
-            screen.textContent += input;
-            rightOperand = rightOperandArray.join('');
-        }
-        else {
-            leftOperandArray.push(input);
-            leftOperand = leftOperandArray.join('');
-            displayScreen(leftOperand);
-        }
-    }
-};
+// const showCalculatorInput = input => {
+//     if (isOperator(input) && !operatorSign) {
+//         operatorSign = input;
+//         screen.textContent += ' ' + operatorSign + ' ';
+//     }
+//     else if (isOperator(input) && operatorSign) {
+//         if (rightOperand === 0) {
+//             operatorSign = input;
+//             screen.textContent += ' ' + operatorSign + ' ';
+//         }
+//         else {
+//             leftOperand = operate(operatorSign);
+//             rightOperandArray.splice(0, rightOperandArray.length);
+//             operatorSign = input;
+//             screen.textContent = `${leftOperand} ${operatorSign} `;
+//             rightOperand = 0;
+//         }
+//     }
+    // else if (isDigits(input) && !isOperator(input)) {
+    //     if (operatorSign) {
+    //         rightOperandArray.push(input);
+    //         screen.textContent += input;
+    //         rightOperand = rightOperandArray.join('');
+    //     }
+    //     else {
+    //         leftOperandArray.push(input);
+    //         leftOperand = leftOperandArray.join('');
+    //         displayScreen(leftOperand);
+    //     }
+    // }
+    // else if (isEquals(input) && operatorSign) {
+    //     displayScreen(operate(operatorSign));
+    //     leftOperand = (operate(operatorSign));
+    //     rightOperandArray.splice(0, rightOperandArray.length);
+    //     rightOperand = 0;
+    // }
+    //     else if (operatorSign && isDelete(input)) {
+    //     operatorSign = '';
+    // }
+//     else if (isDecimal(input) && leftOperandArray.includes(input)) {
+//         if (operatorSign && !rightOperandArray.includes(input)) {
+//             rightOperandArray.push(input);
+//             rightOperand = rightOperandArray.join('');
+//             screen.textContent += input;
+//         }
+//         else {
+//             leftOperandArray;
+//         }
+//     }
+// };
 
 
 
