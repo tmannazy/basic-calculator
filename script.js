@@ -197,6 +197,7 @@ function handleKeyDown (event) {
     isOperator(event.key);
     isDigits(event.key);
     isEquals(event.key);
+    isDelete(event.key);
 }
 
 const calculation = () => {
@@ -205,19 +206,10 @@ const calculation = () => {
 
 const selectButton = e => {
     if (e.target !== e.currentTarget) {
-        // if (isOperator(e.target.value)) {
-        //     return showCalculatorInput(e.target.value);
-        // }
-        // else if (isDigits(e.target.value)) {
-        //     return showCalculatorInput(e.target.value);
-        // }
-        // else if (isEquals(e.target.value)) {
-        //     return showCalculatorInput(e.target.value);
-        // }
-        // else if
         isOperator(e.target.value);
-        isDigits(e.target.value)
-        isEquals(e.target.value)
+        isDigits(e.target.value);
+        isEquals(e.target.value);
+        isDelete(e.target.value);
     };
     e.stopPropagation();
 };
@@ -228,6 +220,9 @@ const isOperator = e => {
             operatorSign = e;
             screen.textContent += ' ' + operatorSign + ' ';
         }
+        // else if (operatorSign && isEquals()) {
+
+        // }
         else if (operatorSign) {
             if (rightOperand === 0) {
                 operatorSign = e;
@@ -261,9 +256,8 @@ const isDigits = num => {
     }
 }
 
-
 const isEquals = equal => {
-    if (equal = '=' && operatorSign) {
+    if (equal === 'Enter' && operatorSign) {
         displayScreen(operate(operatorSign));
         leftOperand = (operate(operatorSign));
         rightOperandArray.splice(0, rightOperandArray.length);
@@ -272,67 +266,8 @@ const isEquals = equal => {
 };
 
 const isDecimal = point => {
-    return point;
-};
-
-const isDelete = del => {
-    if (leftOperandArray) {
-        if (operatorSign) {
-            rightOperandArray.pop();
-            rightOperand = rightOperandArray.join('');
-            screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
-        } else {
-            leftOperandArray.pop();
-            leftOperand = leftOperandArray.join('');
-            displayScreen(leftOperand);
-        }
-    }
-};
-
-const isClear = clear => {
-    clearScreen();
-};
-
-// const showCalculatorInput = input => {
-//     if (isOperator(input) && !operatorSign) {
-//         operatorSign = input;
-//         screen.textContent += ' ' + operatorSign + ' ';
-//     }
-//     else if (isOperator(input) && operatorSign) {
-//         if (rightOperand === 0) {
-//             operatorSign = input;
-//             screen.textContent += ' ' + operatorSign + ' ';
-//         }
-//         else {
-//             leftOperand = operate(operatorSign);
-//             rightOperandArray.splice(0, rightOperandArray.length);
-//             operatorSign = input;
-//             screen.textContent = `${leftOperand} ${operatorSign} `;
-//             rightOperand = 0;
-//         }
-//     }
-    // else if (isDigits(input) && !isOperator(input)) {
-    //     if (operatorSign) {
-    //         rightOperandArray.push(input);
-    //         screen.textContent += input;
-    //         rightOperand = rightOperandArray.join('');
-    //     }
-    //     else {
-    //         leftOperandArray.push(input);
-    //         leftOperand = leftOperandArray.join('');
-    //         displayScreen(leftOperand);
-    //     }
-    // }
-    // else if (isEquals(input) && operatorSign) {
-    //     displayScreen(operate(operatorSign));
-    //     leftOperand = (operate(operatorSign));
-    //     rightOperandArray.splice(0, rightOperandArray.length);
-    //     rightOperand = 0;
-    // }
-    //     else if (operatorSign && isDelete(input)) {
-    //     operatorSign = '';
-    // }
-//     else if (isDecimal(input) && leftOperandArray.includes(input)) {
+    if (point === '.') {
+        if ( leftOperandArray.includes(input)) {
 //         if (operatorSign && !rightOperandArray.includes(input)) {
 //             rightOperandArray.push(input);
 //             rightOperand = rightOperandArray.join('');
@@ -342,6 +277,35 @@ const isClear = clear => {
 //             leftOperandArray;
 //         }
 //     }
+    }
+};
+
+const isDelete = del => {
+    if (del === 'Backspace') {
+        if (leftOperandArray) {
+            if (operatorSign) {
+                operatorSign = '';
+                screen.textContent = `${leftOperand} ${operatorSign}`;
+            }
+            else if (operatorSign && rightOperandArray) {
+                rightOperandArray.pop();
+                rightOperand = rightOperandArray.join('');
+                screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
+            }
+            else {
+                leftOperandArray.pop();
+                leftOperand = leftOperandArray.join('');
+                displayScreen(leftOperand);
+            }
+        }
+    }
+};
+
+const isClear = clear => {
+    clearScreen();
+};
+
+//
 // };
 
 
