@@ -4,7 +4,7 @@
 }
 
 body {
-    background-color: rgb(7, 42, 73);
+    background-color: #091034;
 }
 
 main {
@@ -17,8 +17,8 @@ main {
 }
 
 .button {
-    background-color: rgb(3, 140, 145);
-    color: rgb(203, 224, 203);
+    background-color: #FBA90A;
+    color: #183BF0;
     font-size: xx-large;
     font-weight: 500;
     border: none;
@@ -29,12 +29,14 @@ main {
 }
 
 .calc-body {
-    border: 4px solid rgb(182, 4, 236);
+    /* border: 4px solid rgb(182, 4, 236); */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
     grid-template-areas:
         "display display display clear"
+        ". . . clear"
+        ". . . clear"
         "seven eight nine plus"
         "four five six minus"
         "one two three multiply"
@@ -44,7 +46,15 @@ main {
     padding: 50px;
 }
 
-
+.calc-display {
+    background-color: #F7EBD4;
+    color: #091034;
+    font-size: xx-large;
+    text-align: right;
+    font-weight: 600;
+    padding: 20px;
+    height: 70%;
+}
 
 .nine {
     grid-area: nine;
@@ -120,4 +130,16 @@ main {
 
 .point {
     grid-area: point;
+}
+
+.operator {
+    background-color: #340933;
+    color: #E4F132;
+}
+
+.equals {
+    background-color: #091034;
+    border: 1px solid #E4F132;
+    color: #E4F132;
+    font-size: 50px;
 }
