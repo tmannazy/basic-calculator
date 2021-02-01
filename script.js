@@ -15,23 +15,7 @@ const divide = (a, b) => roundSolution(a / b);
 
 const displayScreen = scr => {
     screen.textContent = scr;
-}
-
-const clearScreen = () => {
-    leftOperandArray.splice(0, leftOperandArray.length);
-    rightOperandArray.splice(0, rightOperandArray.length);
-    leftOperand = 0;
-    rightOperand = 0;
-    operatorSign = '';
-    displayScreen(0);
-}
-
-
-        // else if (e.target.id === 'clear') {
-        //     clearScreen();
-        // }
-
-
+};
 
 const operate = operator => {
     switch (operator) {
@@ -52,7 +36,7 @@ const operate = operator => {
 
 const roundSolution = (operateSolution, decimalPlaces = 3) => {
     return Number(Math.round(operateSolution + 'e' + decimalPlaces) + 'e-' + decimalPlaces)
-}
+};
 
 function handleKeyDown (event) {
     isOperator(event.key);
@@ -60,11 +44,8 @@ function handleKeyDown (event) {
     isEquals(event.key);
     isDelete(event.key);
     isDecimal(event.key);
-}
-
-const calculation = () => {
-    buttons.addEventListener('click', selectButton);
-}
+    clearScreen(event.key);
+};
 
 const selectButton = e => {
     if (e.target !== e.currentTarget) {
@@ -73,9 +54,15 @@ const selectButton = e => {
         isEquals(e.target.value);
         isDelete(e.target.value);
         isDecimal(e.target.value);
+        clearScreen(e.target.value);
     };
     e.stopPropagation();
 };
+
+const calculation = () => {
+    buttons.addEventListener('click', selectButton);
+};
+
 
 const isOperator = e => {
     if (e === '+' || e === '-' || e === '*' || e === '/') {
@@ -117,7 +104,7 @@ const isDigits = num => {
             }
         }
     }
-}
+};
 
 const isEquals = equal => {
     if (equal === 'Enter' && operatorSign) {
@@ -167,12 +154,16 @@ const isDelete = del => {
     }
 };
 
-const isClear = clear => {
-    clearScreen();
+const clearScreen = (clear) => {
+    if (clear === 'Delete') {
+        leftOperandArray.splice(0, leftOperandArray.length);
+        rightOperandArray.splice(0, rightOperandArray.length);
+        leftOperand = 0;
+        rightOperand = 0;
+        operatorSign = '';
+        displayScreen(0);
+    }
 };
-
-
-
 
 calculation();
 
