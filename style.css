@@ -13,21 +13,107 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 250px auto;
-}
-
-.calc-body {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
-    gap: 10px;
+    margin: 30px auto;
 }
 
 .button {
     background-color: rgb(3, 140, 145);
     color: rgb(203, 224, 203);
     font-size: xx-large;
-    font-weight: 700;
+    font-weight: 500;
+    border: none;
+    /* border-left-color: crimson; */
     border-radius: 7px;
-    padding: 40px
+    padding: 20px;
+    outline: none;
+}
+
+.calc-body {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas:
+        "display display display clear"
+        "seven eight nine plus"
+        "four five six minus"
+        "one two three multiply"
+        "point zero delete divide"
+        "equals equals equals equals";
+    gap: 8px;
+}
+
+.nine {
+    grid-area: nine;
+}
+
+.eight {
+    grid-area: eight;
+}
+
+.seven {
+    grid-area: seven;
+}
+
+.six {
+    grid-area: six;
+}
+
+.five {
+    grid-area: five;
+}
+
+.four {
+    grid-area: four;
+}
+
+.three {
+    grid-area: three;
+}
+
+.two {
+    grid-area: two;
+}
+
+.one {
+    grid-area: one;
+}
+
+.zero {
+    grid-area: zero;
+}
+
+.calc-display {
+    grid-area: display;
+}
+
+.clear {
+    grid-area: clear;
+}
+
+.delete {
+    grid-area: delete;
+}
+
+.equals {
+    grid-area: equals;
+}
+
+.plus {
+    grid-area: plus;
+}
+
+.minus {
+    grid-area: minus;
+}
+
+.multiply {
+    grid-area: multiply;
+}
+
+.divide {
+    grid-area: divide;
+}
+
+.point {
+    grid-area: point;
 }
