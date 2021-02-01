@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(7, 42, 73);
+}
+
+main {
+    background-color: rgb(215, 137, 233);
+    /* border: 3px solid greenyellow; */
+    width: 600px;
+    margin: 200px auto;
+}
+
+.calc-body {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 3px;
+}
+
+.button {
+    background-color: rgb(3, 140, 145);
+    color: rgb(203, 224, 203);
+    font-size: xx-large;
+    font-weight: 700;
+    border-radius: 7px;
+    padding: 10px 5px;
+}
