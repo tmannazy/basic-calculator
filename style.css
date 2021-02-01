@@ -8,7 +8,6 @@ body {
 }
 
 main {
-    /* background-color: rgb(215, 137, 233); */
     border: 3px solid greenyellow;
     display: flex;
     justify-content: center;
@@ -22,10 +21,18 @@ main {
     font-size: xx-large;
     font-weight: 500;
     border: none;
-    /* border-left-color: crimson; */
     border-radius: 7px;
     padding: 20px;
     outline: none;
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: #340933;
+    color: #E4F132;
+    transition: all .3s ease;
+    transform: scale(1.1);
+    border-color: #E4F132;
 }
 
 .calc-body {
@@ -35,8 +42,7 @@ main {
     grid-template-rows: auto;
     grid-template-areas:
         "display display display clear"
-        ". . . clear"
-        ". . . clear"
+        ". . . ."
         "seven eight nine plus"
         "four five six minus"
         "one two three multiply"
@@ -44,6 +50,10 @@ main {
         "equals equals equals equals";
     gap: 8px;
     padding: 50px;
+    box-shadow:
+        inset 1em -3em 5em,
+        -1em 4em 2em 1em,
+        0.7em 0.7em 0.8em
 }
 
 .calc-display {
@@ -53,7 +63,7 @@ main {
     text-align: right;
     font-weight: 600;
     padding: 20px;
-    height: 70%;
+    height: 40px;
 }
 
 .nine {
@@ -137,9 +147,22 @@ main {
     color: #E4F132;
 }
 
+.operator:hover {
+    transition: all .3s ease;
+    transform: scale(1.1);
+    background-color: #F7EBD4;
+    color: #340933;
+}
+
 .equals {
     background-color: #091034;
     border: 1px solid #E4F132;
     color: #E4F132;
     font-size: 50px;
+}
+
+.equals:hover {
+    background-color: #F7EBD4;
+    color: #183BF0;
+    transform: scale(1);
 }
