@@ -3,12 +3,12 @@
     padding: 0;
 }
 
+
 body {
     background-color: #091034;
 }
 
 main {
-    border: 3px solid greenyellow;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,7 +19,12 @@ main {
     background-color: #FBA90A;
     color: #183BF0;
     font-size: xx-large;
-    font-weight: 500;
+    /* font-weight: 500; */
+    /* font-family: 'Anonymous Pro', */
+    /* monospace; */
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Cabin Sketch',
+        cursive;
     border: none;
     border-radius: 7px;
     padding: 20px;
@@ -30,13 +35,12 @@ main {
     cursor: pointer;
     background-color: #340933;
     color: #E4F132;
-    transition: all .3s ease;
-    transform: scale(1.1);
+    transition: all .5s ease;
+    transform: scale(1.2);
     border-color: #E4F132;
 }
 
 .calc-body {
-    /* border: 4px solid rgb(182, 4, 236); */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
@@ -47,7 +51,8 @@ main {
         "four five six minus"
         "one two three multiply"
         "point zero delete divide"
-        "equals equals equals equals";
+        "equals equals equals equals"
+        "quote quote quote quote";
     gap: 8px;
     padding: 50px;
     box-shadow:
@@ -62,6 +67,8 @@ main {
     font-size: xx-large;
     text-align: right;
     font-weight: 600;
+    font-family: 'Suez One',
+        serif;
     padding: 20px;
     height: 40px;
 }
@@ -141,6 +148,10 @@ main {
 .point {
     grid-area: point;
 }
+
+/* .quote {
+    grid-area: quote;
+} */
 
 .operator {
     background-color: #340933;
