@@ -8,17 +8,19 @@ body {
 }
 
 main {
-    background-color: rgb(215, 137, 233);
-    /* border: 3px solid greenyellow; */
-    width: 600px;
-    margin: 200px auto;
+    /* background-color: rgb(215, 137, 233); */
+    border: 3px solid greenyellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 250px auto;
 }
 
 .calc-body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
-    gap: 3px;
+    gap: 10px;
 }
 
 .button {
@@ -27,5 +29,5 @@ main {
     font-size: xx-large;
     font-weight: 700;
     border-radius: 7px;
-    padding: 10px 5px;
+    padding: 40px
 }
