@@ -137,15 +137,21 @@ const isDecimal = point => {
 
 const isDelete = del => {
     if (del === 'Backspace') {
-        // if (leftOperandArray && operatorSign && rightOperandArray) {
-        //     rightOperandArray.pop();
-        //     rightOperand = rightOperandArray.join('');
-        //     operatorSign = '';
-        //     leftOperandArray.pop();
-        //     leftOperand = leftOperandArray.join('');
-        //     screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
-        // }
-        if (leftOperandArray) {
+        if (leftOperand && !operatorSign) {
+            leftOperandArray.pop();
+            leftOperand = leftOperandArray.join('');
+            displayScreen(leftOperand);
+        }
+        else if (leftOperand && !rightOperand) {
+            operatorSign = '';
+            screen.textContent = `${leftOperand} ${operatorSign}`;
+        }
+        else if (leftOperand && rightOperand) {
+            rightOperandArray.pop();
+            rightOperand = rightOperandArray.join('');
+            screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
+        }
+        else if (leftOperandArray) {
             if (operatorSign && rightOperandArray) {
                 rightOperandArray.pop();
                 rightOperand = rightOperandArray.join('');
@@ -161,9 +167,6 @@ const isDelete = del => {
                 displayScreen(leftOperand);
             }
         }
-        else if (leftOperand) {
-                clearScreen('Delete');
-            }
     }
 };
 
