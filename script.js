@@ -110,8 +110,10 @@ const isEquals = equal => {
     if (equal === 'Enter' && operatorSign) {
         displayScreen(operate(operatorSign));
         leftOperand = (operate(operatorSign));
+        rightOperand = '';
+        operatorSign = '';
         rightOperandArray.splice(0, rightOperandArray.length);
-        rightOperand = 0;
+        leftOperandArray.splice(0, leftOperandArray.length);
     }
 };
 
