@@ -27,7 +27,7 @@ const operate = operator => {
             return multiply(Number(leftOperand), Number(rightOperand));
         case '/':
             if (Number(rightOperand) === 0) {
-                return 'Don\'t try that again!!!'
+                return 'Infinity'
             } else {
                 return divide(Number(leftOperand), Number(rightOperand));
             }
