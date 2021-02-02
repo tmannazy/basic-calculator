@@ -68,15 +68,20 @@ const isOperator = e => {
     if (e === '+' || e === '-' || e === '*' || e === '/') {
         if (!operatorSign) {
             operatorSign = e;
-            screen.textContent += ' ' + operatorSign + ' ';
+            screen.textContent += ` ${operatorSign} `;
         }
-        // else if (operatorSign && isEquals()) {
-
-        // }
         else if (operatorSign) {
             if (rightOperand === 0) {
                 operatorSign = e;
                 screen.textContent += ` ${operatorSign} `;
+            }
+            else if (rightOperand !== '') {
+                displayScreen(operate(operatorSign));
+                rightOperandArray.splice(0, rightOperandArray.length);
+                leftOperand = operate(operatorSign);
+                rightOperand = '';
+                operatorSign = e;
+                screen.textContent = `${leftOperand} ${operatorSign} `;
             }
             else if (rightOperand) {
                 rightOperand = '';
@@ -97,7 +102,16 @@ const isOperator = e => {
 
 const isDigits = num => {
     if (num >= 0 || num <= 9) {
-        if (!isOperator(num)) {
+        if (rightOperand) {
+            rightOperand = '';
+            operatorSign = '';
+            rightOperandArray.splice(0, rightOperandArray.length);
+            leftOperandArray.splice(0, leftOperandArray.length);
+            leftOperandArray.push(num);
+            leftOperand = leftOperandArray.join('');
+            displayScreen(leftOperand);
+        }
+        else if (!isOperator(num)) {
             if (operatorSign) {
                 rightOperandArray.push(num);
                 screen.textContent += num;
