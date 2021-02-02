@@ -78,12 +78,12 @@ const isOperator = e => {
                 operatorSign = e;
                 screen.textContent += ` ${operatorSign} `;
             }
-            // else if (rightOperand) {
-            //     rightOperand = '';
-            //     operatorSign = e;
-            //     rightOperandArray.splice(0, rightOperandArray.length);
-            //     screen.textContent += ` ${operatorSign} `;
-            // }
+            else if (rightOperand) {
+                rightOperand = '';
+                operatorSign = e;
+                rightOperandArray.splice(0, rightOperandArray.length);
+                screen.textContent += ` ${operatorSign} `;
+            }
             else {
                 leftOperand = operate(operatorSign);
                 rightOperandArray.splice(0, rightOperandArray.length);
