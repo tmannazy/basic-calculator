@@ -52,7 +52,7 @@ const selectButton = e => {
         isOperator(e.target.value);
         isDigits(e.target.value);
         isEquals(e.target.value);
-        isDelete(e.target.id);
+        isDelete(e.target.value);
         isDecimal(e.target.value);
         clearScreen(e.target.value);
     };
@@ -144,14 +144,14 @@ const isDelete = del => {
         //     screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
         // }
         if (leftOperandArray) {
-            if (leftOperandArray && operatorSign) {
-                operatorSign = '';
-                screen.textContent = `${leftOperand} ${operatorSign}`;
-            }
-            else if (operatorSign && rightOperandArray) {
+            if (operatorSign && rightOperandArray) {
                 rightOperandArray.pop();
                 rightOperand = rightOperandArray.join('');
                 screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
+            }
+            else if (leftOperandArray && operatorSign) {
+                operatorSign = '';
+                screen.textContent = `${leftOperand} ${operatorSign}`;
             }
             else {
                 leftOperandArray.pop();
