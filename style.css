@@ -40,6 +40,10 @@ main {
     border-color: #E4F132;
 }
 
+button>i {
+    pointer-events: none;
+}
+
 .calc-body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
