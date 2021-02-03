@@ -40,8 +40,8 @@ const roundSolution = (operateSolution, decimalPlaces = 3) => {
 
 function handleKeyDown (event) {
     isOperator(event.key);
-    isDigits(event.key);
     isEquals(event.key);
+    isDigits(event.key);
     isDelete(event.key);
     isDecimal(event.key);
     clearScreen(event.key);
@@ -50,13 +50,12 @@ function handleKeyDown (event) {
 const selectButton = e => {
     if (e.target !== e.currentTarget) {
         isOperator(e.target.value);
-        isDigits(e.target.value);
         isEquals(e.target.value);
+        isDigits(e.target.value);
         isDelete(e.target.value);
         isDecimal(e.target.value);
         clearScreen(e.target.value);
-    };
-    e.stopPropagation();
+    }e.stopPropagation();
 };
 
 const calculation = () => {
@@ -76,9 +75,9 @@ const isOperator = e => {
                 screen.textContent += ` ${operatorSign} `;
             }
             else if (rightOperand !== '') {
-                displayScreen(operate(operatorSign));
+                // displayScreen(operate(operatorSign));
                 rightOperandArray.splice(0, rightOperandArray.length);
-                leftOperand = operate(operatorSign);
+                // leftOperand = operate(operatorSign);
                 rightOperand = '';
                 operatorSign = e;
                 screen.textContent = `${leftOperand} ${operatorSign} `;
@@ -100,10 +99,18 @@ const isOperator = e => {
     }
 };
 
+const isEquals = equal => {
+    if (equal === 'Enter' && operatorSign) {
+        displayScreen(operate(operatorSign));
+        leftOperand = (operate(operatorSign));
+    }
+};
+
 const isDigits = num => {
     if (num >= 0 || num <= 9) {
-        if (rightOperand) {
+        if (typeof (leftOperand) === 'number') {
             rightOperand = '';
+            leftOperand = '';
             operatorSign = '';
             rightOperandArray.splice(0, rightOperandArray.length);
             leftOperandArray.splice(0, leftOperandArray.length);
@@ -126,22 +133,14 @@ const isDigits = num => {
     }
 };
 
-const isEquals = equal => {
-    if (equal === 'Enter' && operatorSign) {
-        displayScreen(operate(operatorSign));
-        leftOperand = (operate(operatorSign));
-    }
-    else if (equal === 'Enter' && rightOperand) {
-        displayScreen(operate(operatorSign));
-        leftOperand = (operate(operatorSign));
-        rightOperand = '';
-        operatorSign = '';
-        rightOperandArray.splice(0, rightOperandArray.length);
-        leftOperandArray.splice(0, leftOperandArray.length);
-    }
-};
 
 const isDecimal = point => {
+    if (point === '.' && !leftOperand) {
+        leftOperandArray.push(0);
+        leftOperandArray.push(point);
+        leftOperand = leftOperandArray.join('');
+        displayScreen(leftOperand);
+    }
     if (point === '.' && leftOperandArray.includes(point)) {
         if (operatorSign && !rightOperandArray.includes(point)) {
             rightOperandArray.push(point);
