@@ -60,9 +60,10 @@ button>i {
         0.7em 0.7em 0.8em
 }
 
-.calc-display {
+.calc-screen {
     background-color: #F7EBD4;
     color: #091034;
+    display: inline-block;
     font-size: xx-large;
     text-align: right;
     font-weight: 600;
@@ -70,6 +71,7 @@ button>i {
         serif;
     padding: 20px;
     height: 40px;
+    width: 250px;
 }
 
 .nine {
