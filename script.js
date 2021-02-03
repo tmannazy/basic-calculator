@@ -74,7 +74,7 @@ const isOperator = e => {
                 operatorSign = e;
                 screen.textContent += ` ${operatorSign} `;
             }
-            else if (typeof leftOperand === 'number' && rightOperand) {
+            else if (typeof leftOperand === 'number' && typeof rightOperand !== 'string' ) {
                 displayScreen(operate(operatorSign));
                 rightOperandArray.splice(0, rightOperandArray.length);
                 leftOperand = operate(operatorSign);
@@ -167,6 +167,9 @@ const isDelete = del => {
             operatorSign = '';
             screen.textContent = `${leftOperand} ${operatorSign}`;
         }
+        else if (typeof leftOperand === 'number' && typeof rightOperand === 'string') {
+            clearScreen(del);
+        }
         else if (leftOperand && rightOperand) {
             rightOperandArray.pop();
             rightOperand = rightOperandArray.join('');
@@ -193,6 +196,14 @@ const isDelete = del => {
 
 const clearScreen = (clear) => {
     if (clear === 'Delete') {
+        leftOperandArray.splice(0, leftOperandArray.length);
+        rightOperandArray.splice(0, rightOperandArray.length);
+        leftOperand = 0;
+        rightOperand = 0;
+        operatorSign = '';
+        displayScreen(0);
+    }
+    else if (clear === 'Backspace') {
         leftOperandArray.splice(0, leftOperandArray.length);
         rightOperandArray.splice(0, rightOperandArray.length);
         leftOperand = 0;
