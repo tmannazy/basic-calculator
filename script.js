@@ -65,31 +65,29 @@ const calculation = () => {
 
 const isOperator = e => {
     if (e === '+' || e === '-' || e === '*' || e === '/') {
-        if (!leftOperandArray.length >= 9 || !rightOperandArray.length >= 9) {
-            if (!operatorSign) {
+        if (!operatorSign) {
+            operatorSign = e;
+            screen.textContent += ` ${operatorSign} `;
+        }
+        else if (operatorSign) {
+            if (rightOperand === 0) {
                 operatorSign = e;
                 screen.textContent += ` ${operatorSign} `;
             }
-            else if (operatorSign) {
-                if (rightOperand === 0) {
-                    operatorSign = e;
-                    screen.textContent += ` ${operatorSign} `;
-                }
-                else if (typeof leftOperand === 'number' && rightOperand) {
-                    displayScreen(operate(operatorSign));
-                    rightOperandArray.splice(0, rightOperandArray.length);
-                    leftOperand = operate(operatorSign);
-                    rightOperand = '';
-                    operatorSign = e;
-                    screen.textContent = `${leftOperand} ${operatorSign} `;
-                }
-                else {
-                    leftOperand = operate(operatorSign);
-                    rightOperandArray.splice(0, rightOperandArray.length);
-                    operatorSign = e;
-                    screen.textContent = `${leftOperand} ${operatorSign} `;
-                    rightOperand = 0;
-                }
+            else if (typeof leftOperand === 'number' && rightOperand) {
+                displayScreen(operate(operatorSign));
+                rightOperandArray.splice(0, rightOperandArray.length);
+                leftOperand = operate(operatorSign);
+                rightOperand = '';
+                operatorSign = e;
+                screen.textContent = `${leftOperand} ${operatorSign} `;
+            }
+            else {
+                leftOperand = operate(operatorSign);
+                rightOperandArray.splice(0, rightOperandArray.length);
+                operatorSign = e;
+                screen.textContent = `${leftOperand} ${operatorSign} `;
+                rightOperand = 0;
             }
         }
     }
@@ -104,61 +102,57 @@ const isEquals = equal => {
 
 const isDigits = num => {
     if (num >= 0 || num <= 9) {
-        if (leftOperandArray.length <= 10 || rightOperandArray.length <= 10) {
-            if (operatorSign && typeof leftOperand === 'number' && rightOperand === '') {
+        if (operatorSign && typeof leftOperand === 'number' && rightOperand === '') {
+            rightOperandArray.push(num);
+            rightOperand = rightOperandArray.join('');
+            screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
+        }
+        else if (operatorSign && typeof leftOperand === 'number' && typeof rightOperand === 'string') {
+            rightOperand = '';
+            leftOperand = '';
+            operatorSign = '';
+            rightOperandArray.splice(0, rightOperandArray.length);
+            leftOperandArray.splice(0, leftOperandArray.length);
+            leftOperandArray.push(num);
+            leftOperand = leftOperandArray.join('');
+            displayScreen(leftOperand);
+        }
+        else if (!isOperator(num)) {
+            if (operatorSign) {
                 rightOperandArray.push(num);
+                screen.textContent += num;
                 rightOperand = rightOperandArray.join('');
-                screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
             }
-            else if (operatorSign && typeof leftOperand === 'number' && typeof rightOperand === 'string') {
-                rightOperand = '';
-                leftOperand = '';
-                operatorSign = '';
-                rightOperandArray.splice(0, rightOperandArray.length);
-                leftOperandArray.splice(0, leftOperandArray.length);
+            else {
                 leftOperandArray.push(num);
                 leftOperand = leftOperandArray.join('');
                 displayScreen(leftOperand);
-            }
-            else if (!isOperator(num)) {
-                if (operatorSign) {
-                    rightOperandArray.push(num);
-                    screen.textContent += num;
-                    rightOperand = rightOperandArray.join('');
-                }
-                else {
-                    leftOperandArray.push(num);
-                    leftOperand = leftOperandArray.join('');
-                    displayScreen(leftOperand);
-                }
             }
         }
     }
 };
 
 const isDecimal = point => {
-    if (!leftOperandArray.length >= 9 || !rightOperandArray.length >= 9) {
-        if (point === '.' && !leftOperand) {
-            leftOperandArray.push(0);
-            leftOperandArray.push(point);
-            leftOperand = leftOperandArray.join('');
-            displayScreen(leftOperand);
+    if (point === '.' && !leftOperand) {
+        leftOperandArray.push(0);
+        leftOperandArray.push(point);
+        leftOperand = leftOperandArray.join('');
+        displayScreen(leftOperand);
+    }
+    else if (point === '.' && leftOperandArray.includes(point)) {
+        if (operatorSign && !rightOperandArray.includes(point)) {
+            rightOperandArray.push(point);
+            rightOperand = rightOperandArray.join('');
+            screen.textContent += point;
         }
-        else if (point === '.' && leftOperandArray.includes(point)) {
-            if (operatorSign && !rightOperandArray.includes(point)) {
-                rightOperandArray.push(point);
-                rightOperand = rightOperandArray.join('');
-                screen.textContent += point;
-            }
-            else {
-                leftOperandArray;
-            }
+        else {
+            leftOperandArray;
         }
-        else if (point === '.' && !leftOperandArray.includes(point)) {
-            leftOperandArray.push(point);
-            leftOperand = leftOperandArray.join('');
-            displayScreen(leftOperand);
-        }
+    }
+    else if (point === '.' && !leftOperandArray.includes(point)) {
+        leftOperandArray.push(point);
+        leftOperand = leftOperandArray.join('');
+        displayScreen(leftOperand);
     }
 };
 
