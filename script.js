@@ -75,19 +75,19 @@ const isOperator = e => {
                 screen.textContent += ` ${operatorSign} `;
             }
             else if (rightOperand !== '') {
-                // displayScreen(operate(operatorSign));
-                rightOperandArray.splice(0, rightOperandArray.length);
-                // leftOperand = operate(operatorSign);
-                rightOperand = '';
-                operatorSign = e;
+                    displayScreen(operate(operatorSign));
+                    rightOperandArray.splice(0, rightOperandArray.length);
+                    leftOperand = operate(operatorSign);
+                    rightOperand = '';
+                    operatorSign = e;
                 screen.textContent = `${leftOperand} ${operatorSign} `;
             }
-            else if (rightOperand) {
-                rightOperand = '';
-                operatorSign = e;
-                rightOperandArray.splice(0, rightOperandArray.length);
-                screen.textContent += ` ${operatorSign} `;
-            }
+            // else if (rightOperand) {
+            //     rightOperand = '';
+            //     operatorSign = e;
+            //     rightOperandArray.splice(0, rightOperandArray.length);
+                // screen.textContent += ` ${operatorSign} `;
+            // }
             else {
                 leftOperand = operate(operatorSign);
                 rightOperandArray.splice(0, rightOperandArray.length);
@@ -108,7 +108,7 @@ const isEquals = equal => {
 
 const isDigits = num => {
     if (num >= 0 || num <= 9) {
-        if (typeof (leftOperand) === 'number') {
+        if (operatorSign && typeof leftOperand === 'number') {
             rightOperand = '';
             leftOperand = '';
             operatorSign = '';
@@ -132,7 +132,6 @@ const isDigits = num => {
         }
     }
 };
-
 
 const isDecimal = point => {
     if (point === '.' && !leftOperand) {
