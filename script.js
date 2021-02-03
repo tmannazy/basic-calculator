@@ -74,6 +74,13 @@ const isOperator = e => {
                 operatorSign = e;
                 screen.textContent += ` ${operatorSign} `;
             }
+            else if (typeof leftOperand === 'number' && typeof rightOperand === 'string') {
+                leftOperand = operate(operatorSign);
+                rightOperand = '';
+                rightOperandArray.splice(0, rightOperandArray.length);
+                operatorSign = e;
+                screen.textContent = `${leftOperand} ${operatorSign}`;
+            }
             else if (typeof leftOperand === 'number' && typeof rightOperand !== 'string' ) {
                 displayScreen(operate(operatorSign));
                 rightOperandArray.splice(0, rightOperandArray.length);
@@ -103,6 +110,11 @@ const isEquals = equal => {
 const isDigits = num => {
     if (num >= 0 || num <= 9) {
         if (operatorSign && typeof leftOperand === 'number' && rightOperand === '') {
+            rightOperandArray.push(num);
+            rightOperand = rightOperandArray.join('');
+            screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
+        }
+        else if (operatorSign && typeof leftOperand === 'number' && rightOperand !== '') {
             rightOperandArray.push(num);
             rightOperand = rightOperandArray.join('');
             screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
