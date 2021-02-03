@@ -179,14 +179,6 @@ const isDelete = del => {
             operatorSign = '';
             screen.textContent = `${leftOperand} ${operatorSign}`;
         }
-        else if (typeof leftOperand === 'number' && typeof rightOperand === 'string') {
-            leftOperandArray.splice(0, leftOperandArray.length);
-            rightOperandArray.splice(0, rightOperandArray.length);
-            leftOperand = 0;
-            rightOperand = 0;
-            operatorSign = '';
-            displayScreen(0);
-        }
         else if (leftOperand && rightOperand) {
             rightOperandArray.pop();
             rightOperand = rightOperandArray.join('');
@@ -201,6 +193,14 @@ const isDelete = del => {
             else if (leftOperandArray && operatorSign) {
                 operatorSign = '';
                 screen.textContent = `${leftOperand} ${operatorSign}`;
+            }
+            else if (typeof leftOperand === 'number' && typeof rightOperand === 'string') {
+                leftOperandArray.splice(0, leftOperandArray.length);
+                rightOperandArray.splice(0, rightOperandArray.length);
+                leftOperand = 0;
+                rightOperand = 0;
+                operatorSign = '';
+                displayScreen(0);
             }
             else {
                 leftOperandArray.pop();
