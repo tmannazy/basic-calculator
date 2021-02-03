@@ -180,7 +180,12 @@ const isDelete = del => {
             screen.textContent = `${leftOperand} ${operatorSign}`;
         }
         else if (typeof leftOperand === 'number' && typeof rightOperand === 'string') {
-            clearScreen(del);
+            leftOperandArray.splice(0, leftOperandArray.length);
+            rightOperandArray.splice(0, rightOperandArray.length);
+            leftOperand = 0;
+            rightOperand = 0;
+            operatorSign = '';
+            displayScreen(0);
         }
         else if (leftOperand && rightOperand) {
             rightOperandArray.pop();
@@ -208,14 +213,6 @@ const isDelete = del => {
 
 const clearScreen = (clear) => {
     if (clear === 'Delete') {
-        leftOperandArray.splice(0, leftOperandArray.length);
-        rightOperandArray.splice(0, rightOperandArray.length);
-        leftOperand = 0;
-        rightOperand = 0;
-        operatorSign = '';
-        displayScreen(0);
-    }
-    else if (clear === 'Backspace') {
         leftOperandArray.splice(0, leftOperandArray.length);
         rightOperandArray.splice(0, rightOperandArray.length);
         leftOperand = 0;
