@@ -68,6 +68,7 @@ button>i {
 .calc-screen {
     color: #091034;
     font-size: xx-large;
+    display: inline-block;
     text-align: right;
     font-weight: 600;
     font-family: 'Suez One',
