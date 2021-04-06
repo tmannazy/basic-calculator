@@ -8,7 +8,7 @@ let operatorSign;
 screen.textContent = 0;
 document.addEventListener('keydown', handleKeyDown);
 
-const add = (a, b) =>  roundSolution(a + b);
+const add = (a, b) => roundSolution(a + b);
 const subtract = (a, b) => roundSolution(a - b);
 const multiply = (a, b) => roundSolution(a * b);
 const divide = (a, b) => roundSolution(a / b);
@@ -38,7 +38,7 @@ const roundSolution = (operateSolution, decimalPlaces = 3) => {
     return Number(Math.round(operateSolution + 'e' + decimalPlaces) + 'e-' + decimalPlaces)
 };
 
-function handleKeyDown (event) {
+function handleKeyDown(event) {
     isOperator(event.key);
     isEquals(event.key);
     isDigits(event.key);
@@ -55,7 +55,7 @@ const selectButton = e => {
         isDelete(e.target.value);
         isDecimal(e.target.value);
         clearScreen(e.target.value);
-    }e.stopPropagation();
+    } e.stopPropagation();
 };
 
 const calculation = () => {
@@ -74,6 +74,11 @@ const isOperator = e => {
                 operatorSign = e;
                 screen.textContent += ` ${operatorSign} `;
             }
+            else if (typeof leftOperand === 'number' && typeof rightOperand === 'string' && !rightOperandArray.length) {
+                rightOperand = '';
+                operatorSign = e;
+                screen.textContent = `${leftOperand} ${operatorSign}`;
+            }
             else if (typeof leftOperand === 'number' && typeof rightOperand === 'string') {
                 leftOperand = operate(operatorSign);
                 rightOperand = '';
@@ -81,7 +86,7 @@ const isOperator = e => {
                 operatorSign = e;
                 screen.textContent = `${leftOperand} ${operatorSign}`;
             }
-            else if (typeof leftOperand === 'number' && typeof rightOperand !== 'string' ) {
+            else if (typeof leftOperand === 'number' && typeof rightOperand !== 'string') {
                 displayScreen(operate(operatorSign));
                 rightOperandArray.splice(0, rightOperandArray.length);
                 leftOperand = operate(operatorSign);
@@ -104,7 +109,9 @@ const isEquals = equal => {
     if (equal === 'Enter' && operatorSign) {
         displayScreen(operate(operatorSign));
         leftOperand = (operate(operatorSign));
+        rightOperandArray.splice(0, rightOperandArray.length);
     }
+    // rightOperand = '';
 };
 
 const isDigits = num => {
