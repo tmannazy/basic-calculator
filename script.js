@@ -111,7 +111,6 @@ const isEquals = equal => {
         leftOperand = (operate(operatorSign));
         rightOperandArray.splice(0, rightOperandArray.length);
     }
-    // rightOperand = '';
 };
 
 const isDigits = num => {
