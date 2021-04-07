@@ -210,6 +210,15 @@ const isDelete = del => {
             rightOperand = rightOperandArray.join('');
             screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
         }
+        else if (leftOperand === undefined && rightOperand) {
+            rightOperandArray.pop();
+            rightOperand = rightOperandArray.join('');
+            screen.textContent = ` 0 ${operatorSign} ${rightOperand}`;
+        }
+        else if (leftOperand === undefined) {
+            operatorSign = '';
+            screen.textContent = 0;
+        }
         else if (leftOperandArray) {
             if (operatorSign && rightOperandArray) {
                 rightOperandArray.pop();
