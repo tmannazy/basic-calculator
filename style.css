@@ -187,5 +187,6 @@ button>i {
 @media only screen and (max-width: 400px) {
     .calc-screen {
         width: 200px;
+        text-align: left;
     }
 }
