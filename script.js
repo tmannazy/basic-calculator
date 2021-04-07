@@ -135,6 +135,20 @@ const isDigits = num => {
             leftOperand = leftOperandArray.join('');
             displayScreen(leftOperand);
         }
+        else if (operatorSign && typeof leftOperand === 'string' && rightOperand === '') {
+            rightOperandArray.push(num);
+            rightOperand = rightOperandArray.join('');
+            screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
+        }
+        else if (operatorSign && typeof leftOperand === 'string' && rightOperand === '0') {
+            rightOperand = '';
+            leftOperand = '';
+            operatorSign = '';
+            leftOperandArray.splice(0, leftOperandArray.length);
+            leftOperandArray.push(num);
+            leftOperand = leftOperandArray.join('');
+            screen.textContent = `${leftOperand} ${operatorSign}`;
+        }
         else if (!isOperator(num)) {
             if (operatorSign) {
                 rightOperandArray.push(num);
