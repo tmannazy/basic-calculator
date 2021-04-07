@@ -5,7 +5,7 @@ const rightOperandArray = [];
 let leftOperand;
 let rightOperand;
 let operatorSign;
-screen.textContent = 0;
+screen.textContent = Number(0);
 document.addEventListener('keydown', handleKeyDown);
 
 const add = (a, b) => roundSolution(a + b);
@@ -106,7 +106,13 @@ const isOperator = e => {
 };
 
 const isEquals = equal => {
-    if (equal === 'Enter' && operatorSign) {
+    if (equal === 'Enter' && operatorSign && leftOperand === undefined) {
+        leftOperand = '0';
+        displayScreen(operate(operatorSign));
+        leftOperand = (operate(operatorSign));
+        rightOperandArray.splice(0, rightOperandArray.length);
+    }
+    else if (equal === 'Enter' && operatorSign) {
         displayScreen(operate(operatorSign));
         leftOperand = (operate(operatorSign));
         rightOperandArray.splice(0, rightOperandArray.length);
