@@ -186,6 +186,11 @@ const isDecimal = point => {
         leftOperand = leftOperandArray.join('');
         displayScreen(leftOperand);
     }
+    else if (point === '.' && leftOperand) {
+        rightOperandArray.push(point);
+        rightOperand = rightOperandArray.join('');
+        screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
+    }
     else if (point === '.' && leftOperandArray.includes(point)) {
         if (operatorSign && !rightOperandArray.includes(point)) {
             rightOperandArray.push(point);
