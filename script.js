@@ -94,6 +94,15 @@ const isOperator = e => {
                 operatorSign = e;
                 screen.textContent = `${leftOperand} ${operatorSign} `;
             }
+            else if (leftOperand === undefined) {
+                leftOperand = 0;
+                rightOperandArray.splice(0, rightOperandArray.length);
+                displayScreen(operate(operatorSign));
+                leftOperand = operate(operatorSign);
+                rightOperand = '';
+                operatorSign = e;
+                screen.textContent = `${leftOperand} ${operatorSign}`;
+            }
             else {
                 leftOperand = operate(operatorSign);
                 rightOperandArray.splice(0, rightOperandArray.length);
