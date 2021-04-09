@@ -45,6 +45,7 @@ function handleKeyDown(event) {
     isDelete(event.key);
     isDecimal(event.key);
     clearScreen(event.key);
+    // isParenthesis(event.key);
 };
 
 const selectButton = e => {
@@ -78,6 +79,11 @@ const isOperator = e => {
             if (rightOperand === 0) {
                 operatorSign = e;
                 screen.textContent += ` ${operatorSign} `;
+            }
+            else if (operatorSign !== e) {
+                rightOperandArray.push(e);
+                rightOperand = rightOperandArray.join('');
+                screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
             }
             else if (typeof leftOperand === 'number' && typeof rightOperand === 'string' && !rightOperandArray.length) {
                 rightOperand = '';
@@ -281,6 +287,13 @@ const clearScreen = (clear) => {
     }
 };
 
+// const isParenthesis = (bracket) => {
+//     if (bracket === ')') {
+//         rightOperandArray.push(bracket);
+//         rightOperand = rightOperandArray.join('');
+//         screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
+//     }
+// };
 // // let limit = entry => {
 // // function limit(entry) {
 // return this.filter((item, index) => {
