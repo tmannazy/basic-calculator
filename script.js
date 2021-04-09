@@ -80,6 +80,10 @@ const isOperator = e => {
                 operatorSign = e;
                 screen.textContent += ` ${operatorSign} `;
             }
+            else if (operatorSign !== e && typeof rightOperand === 'string') {
+                operatorSign = e;
+                screen.textContent = `${leftOperand} ${operatorSign}`;
+            }
             else if (operatorSign !== e) {
                 rightOperandArray.push(e);
                 rightOperand = rightOperandArray.join('');
