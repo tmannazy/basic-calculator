@@ -5,7 +5,7 @@ const rightOperandArray = [];
 let leftOperand;
 let rightOperand;
 let operatorSign;
-screen.textContent = Number(0);
+screen.textContent = 0;
 document.addEventListener('keydown', handleKeyDown);
 
 const add = (a, b) => roundSolution(a + b);
@@ -65,7 +65,12 @@ const calculation = () => {
 
 const isOperator = e => {
     if (e === '+' || e === '-' || e === '*' || e === '/') {
-        if (!operatorSign) {
+        if (e === '-' && leftOperand === undefined) {
+            leftOperandArray.push(e);
+            leftOperand = leftOperandArray.join('');
+            screen.textContent = `${leftOperand}`;
+        }
+        else if (!operatorSign) {
             operatorSign = e;
             screen.textContent += ` ${operatorSign} `;
         }
@@ -130,7 +135,12 @@ const isEquals = equal => {
 
 const isDigits = num => {
     if (num >= 0 || num <= 9) {
-        if (operatorSign && typeof leftOperand === 'number' && rightOperand === '') {
+        if (leftOperand === undefined) {
+            leftOperandArray.push(num);
+            leftOperand = leftOperandArray.join('');
+            screen.textContent += ` ${leftOperand}`;
+        }
+        else if (operatorSign && typeof leftOperand === 'number' && rightOperand === '') {
             rightOperandArray.push(num);
             rightOperand = rightOperandArray.join('');
             screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
@@ -270,6 +280,18 @@ const clearScreen = (clear) => {
         displayScreen(0);
     }
 };
+
+// // let limit = entry => {
+// // function limit(entry) {
+// return this.filter((item, index) => {
+//     if (index <= (entry - 1)) {
+//         return true;
+//     }
+// })
+// };
+// Array.prototype.limit = limit;
+// leftOperandArray.limit(9);
+// rightOperandArray.limit(9);
 
 calculation();
 
