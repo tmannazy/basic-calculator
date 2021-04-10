@@ -87,6 +87,14 @@ const isOperator = e => {
                 operatorSign = e;
                 screen.textContent = `${leftOperand} ${operatorSign}`;
             }
+            // else if (operatorSign !== e && typeof leftOperand === 'number' && typeof rightOperand === 'number') {
+
+            // }
+            else if (operatorSign !== e && typeof leftOperand === 'number' && rightOperand === '') {
+                rightOperandArray.push(e);
+                rightOperand = rightOperandArray.join('');
+                screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
+            }
             else if (operatorSign !== e && typeof rightOperand === 'string') {
                 operatorSign = e;
                 screen.textContent = `${leftOperand} ${operatorSign}`;
