@@ -95,6 +95,13 @@ const isOperator = e => {
                 rightOperand = rightOperandArray.join('');
                 screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
             }
+            else if (operatorSign !== e && typeof leftOperand === 'number' && typeof rightOperand === 'string') {
+                leftOperand = operate(operatorSign);
+                rightOperand = '';
+                rightOperandArray.splice(0, rightOperandArray.length);
+                operatorSign = e;
+                screen.textContent = `${leftOperand} ${operatorSign}`;
+            }
             else if (operatorSign !== e && typeof rightOperand === 'string') {
                 operatorSign = e;
                 screen.textContent = `${leftOperand} ${operatorSign}`;
