@@ -181,7 +181,7 @@ const isDigits = num => {
         else if (leftOperand === undefined) {
             leftOperandArray.push(num);
             leftOperand = leftOperandArray.join('');
-            screen.textContent += ` ${leftOperand}`;
+            screen.textContent = ` ${leftOperand}`;
         }
         else if (operatorSign && typeof leftOperand === 'number' && rightOperand === '') {
             rightOperandArray.push(num);
