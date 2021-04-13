@@ -87,13 +87,16 @@ const isOperator = e => {
                 operatorSign = e;
                 screen.textContent = `${leftOperand} ${operatorSign}`;
             }
-            // else if (operatorSign !== e && typeof leftOperand === 'number' && typeof rightOperand === 'number') {
-
-            // }
             else if (operatorSign !== e && typeof leftOperand === 'number' && rightOperand === '') {
                 rightOperandArray.push(e);
                 rightOperand = rightOperandArray.join('');
                 screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
+            }
+            else if (operatorSign !== e && typeof leftOperand === 'number' && rightOperand !== '') {
+                rightOperand = '';
+                rightOperandArray.splice(0, rightOperandArray.length);
+                operatorSign = e;
+                screen.textContent = `${leftOperand} ${operatorSign}`;
             }
             else if (operatorSign !== e && typeof leftOperand === 'number' && typeof rightOperand === 'string') {
                 leftOperand = operate(operatorSign);
@@ -163,6 +166,9 @@ const isEquals = equal => {
         leftOperand = (operate(operatorSign));
         rightOperandArray.splice(0, rightOperandArray.length);
     }
+    else if (equal === 'Enter' && operatorSign && typeof rightOperand === 'string') {
+
+    }
 };
 
 const isDigits = num => {
@@ -181,6 +187,14 @@ const isDigits = num => {
             rightOperandArray.push(num);
             rightOperand = rightOperandArray.join('');
             screen.textContent = `${leftOperand} ${operatorSign} ${rightOperand}`;
+        }
+        else if (operatorSign && typeof leftOperand === 'number' && typeof rightOperand === 'string' && !rightOperandArray.length) {
+            leftOperandArray.splice(0, leftOperandArray.length);
+            leftOperandArray.push(num);
+            leftOperand = leftOperandArray.join('');
+            rightOperand = '';
+            operatorSign = '';
+            screen.textContent = ` ${leftOperand}`;
         }
         else if (operatorSign && typeof leftOperand === 'number' && rightOperand !== '') {
             rightOperandArray.push(num);
