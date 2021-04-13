@@ -167,7 +167,12 @@ const isEquals = equal => {
 
 const isDigits = num => {
     if (num >= 0 || num <= 9) {
-        if (leftOperand === undefined) {
+        if (leftOperand === undefined && num === '0') {
+            leftOperandArray.push(num);
+            leftOperand = leftOperandArray.join('');
+            screen.textContent = ` ${leftOperand}`;
+        }
+        else if (leftOperand === undefined) {
             leftOperandArray.push(num);
             leftOperand = leftOperandArray.join('');
             screen.textContent += ` ${leftOperand}`;
